@@ -1,23 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useEffect, useState } from "react";
+// import axios from 'axios'
+import AddEmp from "./components/AddEmp";
+import Home from "./components/Home";
+import EditEmp from "./components/EditEmp";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import "./App.css";
+import LoginIn from "./components/LoginIn";
+import SignUp from "./components/SignUp";
 function App() {
+  const [login, setLogin] = useState(false);
+  const setUpLogin = async () => {
+    const user = await localStorage.getItem("userItem");
+    if (user === null) {
+      setLogin(false);
+    } else {
+      setLogin(true);
+    }
+  };
+
+  useEffect(() => {
+    setUpLogin();
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <Navbar login={login} setUpLogin={setUpLogin} setLogin={setLogin} />
+        <Routes>
+          <Route
+            path="/"
+            element={<Home login={login} setUpLogin={setUpLogin} />}
+          />
+          <Route
+            path="/addemployee"
+            element={<AddEmp login={login} setUpLogin={setUpLogin} />}
+          />
+          <Route
+            path="/update/:id"
+            element={<EditEmp login={login} setUpLogin={setUpLogin} />}
+          />
+          <Route
+            path="/login"
+            element={<LoginIn login={login} setUpLogin={setUpLogin} />}
+          />
+          <Route
+            path="/signup"
+            element={<SignUp login={login} setUpLogin={setUpLogin} />}
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
