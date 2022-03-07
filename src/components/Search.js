@@ -30,19 +30,17 @@ const Search = ({ login }) => {
     setEmployees(data);
   };
 
- 
   const filterItems = (searchField, searchText) => {
     console.log(employees);
-    
+
     console.log(searchField);
-    
-   
-    let updatedList = employees.filter((item)=>{
+
+    let updatedList = employees.filter((item) => {
       // console.log((item[searchField]).toString().includes(searchText)  ," " ,typeof(item[searchField]));
       // console.log("searchText = ",searchText," ", typeof(searchText));
-      return (item[searchField])?.toString().includes(searchText);
-    })
-    console.log(updatedList)
+      return item[searchField]?.toString().includes(searchText);
+    });
+    console.log(updatedList);
 
     setfilter(updatedList);
   };
@@ -69,15 +67,10 @@ const Search = ({ login }) => {
   useEffect(() => {
     getEmployeeField();
   }, []);
-  useEffect(()=>{
-    console.log(
-      "searchField = ",
-      searchField,
-      "searchText=",
-      searchText
-    );
-    filterItems(searchField,searchText);
-  },[searchField,searchText,employees])
+  useEffect(() => {
+    console.log("searchField = ", searchField, "searchText=", searchText);
+    filterItems(searchField, searchText);
+  }, [searchField, searchText, employees]);
 
   useEffect(() => {
     if (!login) navigate("/login");
@@ -133,7 +126,7 @@ const Search = ({ login }) => {
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
-              
+
               // filterItems(searchField, searchText);
             }}
           />

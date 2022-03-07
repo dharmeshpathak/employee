@@ -1,7 +1,16 @@
 import * as React from "react";
-// import Area from "./Area";
-// import Maing from "./Main";
-// import Login from "./Login";
+import AddEmp from "./AddEmp.js";
+import Home from "./Home";
+import EditEmp from "./EditEmp";
+import { Link, Routes, Route, useNavigate } from "react-router-dom";
+
+import LoginIn from "./LoginIn";
+import SignUp from "./SignUp";
+import Search from "./Search";
+import HomeIcon from "@mui/icons-material/Home";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -18,9 +27,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import { Link, Routes, Route } from "react-router-dom";
+
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -29,34 +36,34 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
     padding: theme.spacing(3),
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: `-${drawerWidth}px`,
     ...(open && {
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen
+        duration: theme.transitions.duration.enteringScreen,
       }),
-      marginLeft: 0
-    })
+      marginLeft: 0,
+    }),
   })
 );
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open"
+  shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen
+    duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
 }));
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -65,13 +72,13 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: "flex-end"
+  justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({ login, setUpLogin }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [login, setLogin] = React.useState(false);
+  //   const [login, setLogin] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -80,6 +87,18 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const navigate = useNavigate();
+  //   const setUpLogin = async () => {
+  //     const user = await localStorage.getItem("userItem");
+  //     if (user === null) {
+  //       setLogin(false);
+  //     } else {
+  //       setLogin(true);
+  //     }
+  //   };
+  React.useEffect(() => {
+    setUpLogin();
+  });
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -105,14 +124,14 @@ export default function PersistentDrawerLeft() {
                 style={{
                   textDecoration: "none",
                   color: "white",
-                  margin: " 0 5px"
+                  margin: " 0 5px",
                 }}
-                onClick={() => setLogin(true)}
+                // onClick={() => setLogin(true)}
               >
-                <Typography textAlign="center">SignUp</Typography>
+                <Typography textAlign="center">LogIn</Typography>
               </Link>
               <Link
-                to="/login"
+                to="/signup"
                 style={{ textDecoration: "none", color: "white" }}
               >
                 <Typography textAlign="center">SignUp</Typography>
@@ -128,8 +147,8 @@ export default function PersistentDrawerLeft() {
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
-            boxSizing: "border-box"
-          }
+            boxSizing: "border-box",
+          },
         }}
         variant="persistent"
         anchor="left"
@@ -146,24 +165,52 @@ export default function PersistentDrawerLeft() {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <ListItem button key={"Home"}>
+              <ListItemIcon>
+                <HomeIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary={"Home"} />
+            </ListItem>
+          </Link>
+          <Link to="/addemployee" style={{ textDecoration: "none" }}>
+            <ListItem button key={"Add Employee"}>
+              <ListItemIcon>
+                <PersonAddIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary={"Add Emp"} />
+            </ListItem>
+          </Link>
+
+          <Link to="/search" style={{ textDecoration: "none" }}>
+            <ListItem button key={"Search"}>
+              <ListItemIcon>
+                <PersonSearchIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary={"Search"} />
+            </ListItem>
+          </Link>
+
+          <Link to="/login" style={{ textDecoration: "none" }}>
             <ListItem
               button
-              key={text}
+              key={"Logout"}
               onClick={() => {
-                setLogin(false);
                 setOpen(false);
+
+                localStorage.clear();
+                navigate("/login");
               }}
             >
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <LogoutIcon color="primary" />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={"Logout"} />
             </ListItem>
-          ))}
+          </Link>
         </List>
         <List>
-          {["Inbox", "Drafts"].map((text, index) => (
+          {/* {["Inbox", "Drafts"].map((text, index) => (
             <Link to="/main">
               <ListItem button key={text}>
                 <ListItemIcon>
@@ -172,7 +219,7 @@ export default function PersistentDrawerLeft() {
                 <ListItemText primary={text} />
               </ListItem>
             </Link>
-          ))}
+          ))} */}
         </List>
       </Drawer>
 
@@ -180,12 +227,30 @@ export default function PersistentDrawerLeft() {
         <DrawerHeader />
 
         <Routes>
-          {/* <Route
+          <Route
             path="/"
-            element={<Area login={login} setLogin={setLogin} />}
+            element={<Home login={login} setUpLogin={setUpLogin} />}
           />
-          <Route path="/main" element={<Maing login={login} />} />
-          <Route path="/login" element={<Login login={login} />} /> */}
+          <Route
+            path="/addemployee"
+            element={<AddEmp login={login} setUpLogin={setUpLogin} />}
+          />
+          <Route
+            path="/search"
+            element={<Search login={login} setUpLogin={setUpLogin} />}
+          />
+          <Route
+            path="/update/:id"
+            element={<EditEmp login={login} setUpLogin={setUpLogin} />}
+          />
+          <Route
+            path="/login"
+            element={<LoginIn login={login} setUpLogin={setUpLogin} />}
+          />
+          <Route
+            path="/signup"
+            element={<SignUp login={login} setUpLogin={setUpLogin} />}
+          />
         </Routes>
       </Main>
     </Box>

@@ -25,10 +25,8 @@ function Home({ login, setUpLogin }) {
     setEmployees(data);
     setCheckedState(resize(checkedState, data.length, false));
     console.log(checkedState);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-
 
   function resize(arr, newSize, defaultValue) {
     return [
@@ -80,14 +78,14 @@ function Home({ login, setUpLogin }) {
     setUpLogin();
     // getEmployee();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [login]);
 
   return (
     <Box display={"flex"} justifyContent={"center"} m={4}>
       <TableContainer component={Paper} sx={{ maxWidth: 850 }}>
         <Table sx={{ minWidth: 688 }} aria-label="simple table">
-          <TableHead style={{ backgroundColor: "black" }}>
+          <TableHead style={{ backgroundColor: "#00E" }}>
             <TableRow>
               <TableCell style={{ color: "white" }}>ID</TableCell>
               <TableCell style={{ color: "white" }} align="right">

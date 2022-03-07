@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 // import axios from 'axios'
-import AddEmp from "./components/AddEmp";
-import Home from "./components/Home";
-import EditEmp from "./components/EditEmp";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+// import AddEmp from "./components/AddEmp";
+// import Home from "./components/Home";
+// import EditEmp from "./components/EditEmp";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import Navbar from "./components/Navbar";
 import "./App.css";
-import LoginIn from "./components/LoginIn";
-import SignUp from "./components/SignUp";
-import Search from "./components/Search";
+// import LoginIn from "./components/LoginIn";
+// import SignUp from "./components/SignUp";
+// import Search from "./components/Search";
+import {BrowserRouter} from 'react-router-dom'
+import NewNavbar from './components/NewNavbar'
 function App() {
   const [login, setLogin] = useState(false);
   const setUpLogin = async () => {
@@ -26,7 +28,8 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Navbar login={login} setUpLogin={setUpLogin} setLogin={setLogin} />
+      <NewNavbar login={login} setUpLogin={setUpLogin}/>
+        {/* <Navbar login={login} setUpLogin={setUpLogin} setLogin={setLogin} />
         <Routes>
           <Route
             path="/"
@@ -52,7 +55,7 @@ function App() {
             path="/signup"
             element={<SignUp login={login} setUpLogin={setUpLogin} />}
           />
-        </Routes>
+        </Routes> */}
       </BrowserRouter>
     </div>
   );
