@@ -78,8 +78,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function PersistentDrawerLeft({ login, setUpLogin }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  //   const [login, setLogin] = React.useState(false);
-
+ 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -88,14 +87,7 @@ export default function PersistentDrawerLeft({ login, setUpLogin }) {
     setOpen(false);
   };
   const navigate = useNavigate();
-  //   const setUpLogin = async () => {
-  //     const user = await localStorage.getItem("userItem");
-  //     if (user === null) {
-  //       setLogin(false);
-  //     } else {
-  //       setLogin(true);
-  //     }
-  //   };
+  
   React.useEffect(() => {
     setUpLogin();
   });
@@ -126,7 +118,7 @@ export default function PersistentDrawerLeft({ login, setUpLogin }) {
                   color: "white",
                   margin: " 0 5px",
                 }}
-                // onClick={() => setLogin(true)}
+                
               >
                 <Typography textAlign="center">LogIn</Typography>
               </Link>
@@ -210,16 +202,7 @@ export default function PersistentDrawerLeft({ login, setUpLogin }) {
           </Link>
         </List>
         <List>
-          {/* {["Inbox", "Drafts"].map((text, index) => (
-            <Link to="/main">
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            </Link>
-          ))} */}
+          
         </List>
       </Drawer>
 

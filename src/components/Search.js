@@ -36,14 +36,14 @@ const Search = ({ login }) => {
     console.log(searchField);
 
     let updatedList = employees.filter((item) => {
-      // console.log((item[searchField]).toString().includes(searchText)  ," " ,typeof(item[searchField]));
-      // console.log("searchText = ",searchText," ", typeof(searchText));
+      
       return item[searchField]?.toString().includes(searchText);
     });
     console.log(updatedList);
 
     setfilter(updatedList);
   };
+  
 
   const deleteEmployee = async (id) => {
     const res = await axios.delete(`http://localhost:3000/employees/${id}`);
@@ -70,6 +70,7 @@ const Search = ({ login }) => {
   useEffect(() => {
     console.log("searchField = ", searchField, "searchText=", searchText);
     filterItems(searchField, searchText);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchField, searchText, employees]);
 
   useEffect(() => {
