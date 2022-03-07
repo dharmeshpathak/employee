@@ -92,6 +92,14 @@ function Navbar({ login, setLogin }) {
                     </Link>
                   )}
                 </MenuItem>
+                <MenuItem key="Add Note4" onClick={handleCloseNavMenu}>
+                  {login && (
+                    <Link to="/search" style={{ textDecoration: "none" }}>
+                      <Typography textAlign="center">Search</Typography>
+                    </Link>
+                  )}
+                  
+                </MenuItem>
                 <MenuItem
                   key="Add Note2"
                   onClick={() => {
@@ -143,6 +151,19 @@ function Navbar({ login, setLogin }) {
                   </Link>
                 )}
               </Button>
+              {login && (
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "black", display: "block" }}
+              >
+                
+                  <Link to="/search" style={{ textDecoration: "none" }}>
+                    Search
+                  </Link>
+                
+                
+              </Button>)}
+              {login && (
               <Button
                 onClick={() => {
                   handleCloseNavMenu();
@@ -152,12 +173,12 @@ function Navbar({ login, setLogin }) {
                 }}
                 sx={{ my: 2, color: "black", display: "block" }}
               >
-                {login && (
+                
                   <Link to="/addemployee" style={{ textDecoration: "none" }}>
                     Logout
                   </Link>
-                )}
-              </Button>
+                
+              </Button>)}
             </Box>
           </Toolbar>
           {/* <Toolbar>

@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import "./App.css";
 import LoginIn from "./components/LoginIn";
 import SignUp from "./components/SignUp";
+import Search from "./components/Search";
 function App() {
   const [login, setLogin] = useState(false);
   const setUpLogin = async () => {
@@ -34,6 +35,10 @@ function App() {
           <Route
             path="/addemployee"
             element={<AddEmp login={login} setUpLogin={setUpLogin} />}
+          />
+           <Route
+            path="/search"
+            element={<Search login={login} setUpLogin={setUpLogin} />}
           />
           <Route
             path="/update/:id"
