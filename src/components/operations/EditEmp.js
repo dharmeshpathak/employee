@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Paper, Typography, Box, Button } from "@mui/material";
-import "../styles/inputfield.css";
-import axios from "axios";
+import "../../styles/inputfield.css";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import instance from '../../api'
 function EditEmp({ login, setLogin }) {
   let navigate = useNavigate();
   const [employee, setEmployee] = useState({
@@ -15,7 +15,7 @@ function EditEmp({ login, setLogin }) {
   const { id } = useParams();
 
   const getEmployee = async () => {
-    const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/employees/${id}`);
+    const { data } = await instance.get(`/employees/${id}`);
     console.log(data);
     setEmployee({
       name: data.name,
@@ -37,7 +37,7 @@ function EditEmp({ login, setLogin }) {
   };
 
   const updateEmploee = async () => {
-    const res = await axios.patch(`${process.env.REACT_APP_BASE_URL}/employees/${id}`, {
+    const res = await instance.patch(`/employees/${id}`, {
       name: employee.name,
       email: employee.email,
       phone: employee.phone,

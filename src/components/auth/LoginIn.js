@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Paper, Typography, Box, Button } from "@mui/material";
-import "../styles/inputfield.css";
+import "../../styles/inputfield.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 const LoginIn = ({ setUpLogin, login }) => {

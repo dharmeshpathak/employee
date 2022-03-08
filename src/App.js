@@ -19,7 +19,7 @@ function App() {
     setUpLogin();
   });
   return (
-    <div>
+    <div className="main">
       <BrowserRouter>
         <NewNavbar login={login} setUpLogin={setUpLogin} />
         

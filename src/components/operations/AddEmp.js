@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Paper, Typography, Box, Button } from "@mui/material";
-import "../styles/inputfield.css";
-import axios from "axios";
+import "../../styles/inputfield.css";
 import { useNavigate } from "react-router-dom";
+import instance from '../../api'
 const AddEmp = ({ login, setLogin }) => {
   let navigate = useNavigate();
   const [employee, setEmployee] = useState({
@@ -28,7 +28,7 @@ const AddEmp = ({ login, setLogin }) => {
       return;
     }
 
-    const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/employees`, {
+    const res = await instance.post(`/employees`, {
       name: employee.name,
       email: employee.email,
       phone: employee.phone,

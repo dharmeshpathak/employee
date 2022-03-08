@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,6 +10,7 @@ import { Paper, Box, Checkbox, Button, ButtonGroup } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useNavigate } from "react-router-dom";
+import instance from '../../api/index'
 function Home({ login, setUpLogin }) {
   const [employee, setEmployees] = useState([]);
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ function Home({ login, setUpLogin }) {
   const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
 
   const getEmployee = useCallback(async () => {
-    const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/employees`);
+    const { data } = await instance.get(`/employees`);
 
     // setEmployees(employees.data);
     setEmployees(data);
@@ -36,7 +36,7 @@ function Home({ login, setUpLogin }) {
   }
   
   const deleteEmployee = async (id) => {
-    const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}/employees/${id}`);
+    const res = await instance.delete(`/employees/${id}`);
     const newList = employee.filter((emp) => {
       return emp.id !== id;
     });
@@ -65,7 +65,7 @@ function Home({ login, setUpLogin }) {
 
     delEmp.map(
       async (empl, index) =>
-        await axios.delete(`${process.env.REACT_APP_BASE_URL}/employees/${empl.id}`)
+        await instance.delete(`/employees/${empl.id}`)
     );
     navigate("/addEmployee");
   };
@@ -89,22 +89,22 @@ function Home({ login, setUpLogin }) {
           <TableHead style={{ backgroundColor: "#00E" }}>
             <TableRow>
               <TableCell style={{ color: "white" }}>ID</TableCell>
-              <TableCell style={{ color: "white" }} align="right">
+              <TableCell style={{ color: "white" }} align="left">
                 Name
               </TableCell>
-              <TableCell style={{ color: "white" }} align="right">
+              <TableCell style={{ color: "white" }} align="left">
                 Email
               </TableCell>
-              <TableCell style={{ color: "white" }} align="right">
+              <TableCell style={{ color: "white" }} align="left">
                 DOB
               </TableCell>
-              <TableCell style={{ color: "white" }} align="right">
+              <TableCell style={{ color: "white" }} align="left">
                 Phone
               </TableCell>
               <TableCell style={{ color: "white" }} align="center">
                 Action
               </TableCell>
-              <TableCell style={{ color: "white" }} align="right">
+              <TableCell style={{ color: "white" }} align="center">
                 <Button onClick={bulkDelete}>
                   <DeleteOutlineIcon style={{ color: "white" }} />
                 </Button>
@@ -120,11 +120,11 @@ function Home({ login, setUpLogin }) {
                 <TableCell component="th" scope="row">
                   {row.id}
                 </TableCell>
-                <TableCell align="right">{row.name}</TableCell>
-                <TableCell align="right">{row.email}</TableCell>
-                <TableCell align="right">{row.dob}</TableCell>
-                <TableCell align="right">{row.phone}</TableCell>
-                <TableCell align="right">
+                <TableCell align="left">{row.name}</TableCell>
+                <TableCell align="left">{row.email}</TableCell>
+                <TableCell align="left">{row.dob}</TableCell>
+                <TableCell align="left">{row.phone}</TableCell>
+                <TableCell align="center">
                   <ButtonGroup
                     variant="contained"
                     aria-label="outlined primary button group"
@@ -142,7 +142,7 @@ function Home({ login, setUpLogin }) {
                     </Button>
                   </ButtonGroup>
                 </TableCell>
-                <TableCell align="right">
+                <TableCell align="center">
                   <Checkbox
                     type="checkbox"
                     id={`custom-checkbox-${index}`}

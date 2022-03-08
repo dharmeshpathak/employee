@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -17,13 +16,14 @@ import TableRow from "@mui/material/TableRow";
 import { Button, ButtonGroup } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import instance from '../../api'
 const Search = ({ login }) => {
   const [employee, setEmployee] = useState({});
   const [employees, setEmployees] = useState([]);
   const [filterd, setfilter] = useState([]);
   const navigate = useNavigate();
   const getEmployeeField = async () => {
-    const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/employees`);
+    const { data } = await instance.get(`/employees`);
     console.log(data);
 
     setEmployee(data[0]);
@@ -46,7 +46,7 @@ const Search = ({ login }) => {
   
 
   const deleteEmployee = async (id) => {
-    const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}/employees/${id}`);
+    const res = await instance.delete(`/employees/${id}`);
     const newList = employees.filter((emp) => {
       return emp.id !== id;
     });
@@ -57,7 +57,7 @@ const Search = ({ login }) => {
     }
   };
 
-  const [searchField, setSearchField] = useState("");
+  const [searchField, setSearchField] = useState('');
   const [searchText, setSearchText] = useState("");
 
   const handleChange = (event) => {
@@ -82,6 +82,7 @@ const Search = ({ login }) => {
   return (
     <Container>
       <Box
+      key = "main"
         sx={{ minWidth: 120, maxWidth: 450 }}
         elevation={1}
         component={Paper}
@@ -134,35 +135,36 @@ const Search = ({ login }) => {
         </FormControl>
       </Box>
 
-      {filterd.length > 0 ? (
-        <Box display={"flex"} justifyContent={"center"} m={4}>
+      {(searchField===""?employees.length:filterd.length )> 0 ? (
+        <Box display={"flex"} justifyContent={"center"}  mt = {6} key = "box1">
           <TableContainer component={Paper} sx={{ maxWidth: 750 }}>
             <Table sx={{ minWidth: 688 }} aria-label="simple table">
               <TableHead style={{ backgroundColor: "black" }}>
-                <TableRow>
-                  <TableCell style={{ color: "white" }}>ID</TableCell>
-                  <TableCell style={{ color: "white" }} align="right">
+                <TableRow key ='head1'>
+                  <TableCell style={{ color: "white" }} key='id'>ID</TableCell>
+                  <TableCell style={{ color: "white" }} align="right" key='userame'>
                     Name
                   </TableCell>
-                  <TableCell style={{ color: "white" }} align="right">
+                  <TableCell style={{ color: "white" }} align="right" key='Email'>
                     Email
                   </TableCell>
-                  <TableCell style={{ color: "white" }} align="right">
+                  <TableCell style={{ color: "white" }} align="right" key='DOB'>
                     DOB
                   </TableCell>
-                  <TableCell style={{ color: "white" }} align="right">
+                  <TableCell style={{ color: "white" }} align="right" key='Phone'>
                     Phone
                   </TableCell>
-                  <TableCell style={{ color: "white" }} align="center">
+                  <TableCell style={{ color: "white" }} align="center" key='Action'>
                     Action
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filterd.map((row, index) => (
+                {(searchField===""?employees:filterd).map((row, index) => (
                   <TableRow
                     key={row.name}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                   
                   >
                     <TableCell component="th" scope="row">
                       {row.id}
@@ -198,6 +200,7 @@ const Search = ({ login }) => {
       ) : (
         <Box
           sx={{ minWidth: 120, maxWidth: 450 }}
+          key="box2"
           elevation={1}
           component={Paper}
           p={4}
