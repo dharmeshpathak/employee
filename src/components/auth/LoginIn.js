@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Paper, Typography, Box, Button } from "@mui/material";
-import "./AddEmp.css";
+import "../styles/inputfield.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 const LoginIn = ({ setUpLogin, login }) => {
@@ -18,12 +18,12 @@ const LoginIn = ({ setUpLogin, login }) => {
   };
 
   const loginEmp = async () => {
-    const { data, status } = await axios.get("http://localhost:3000/users");
+    const { data, status } = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`);
 
     if (status === 200) {
       const user = data.filter((emp) => {
         return (
-          emp.email === employee.email && emp.password === employee.password
+          emp.username === employee.username && emp.password === employee.password
         );
       });
       if (user.length !== 0) {

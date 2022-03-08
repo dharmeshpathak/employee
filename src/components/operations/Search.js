@@ -23,7 +23,7 @@ const Search = ({ login }) => {
   const [filterd, setfilter] = useState([]);
   const navigate = useNavigate();
   const getEmployeeField = async () => {
-    const { data } = await axios.get("http://localhost:3000/employees");
+    const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/employees`);
     console.log(data);
 
     setEmployee(data[0]);
@@ -37,7 +37,7 @@ const Search = ({ login }) => {
 
     let updatedList = employees.filter((item) => {
       
-      return item[searchField]?.toString().includes(searchText);
+      return item[searchField]?.toString()?.toLowerCase().includes(searchText.toLowerCase());
     });
     console.log(updatedList);
 
@@ -46,7 +46,7 @@ const Search = ({ login }) => {
   
 
   const deleteEmployee = async (id) => {
-    const res = await axios.delete(`http://localhost:3000/employees/${id}`);
+    const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}/employees/${id}`);
     const newList = employees.filter((emp) => {
       return emp.id !== id;
     });

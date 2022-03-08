@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { Paper, Typography, Box, Button } from "@mui/material";
-import "./AddEmp.css";
+import "../styles/inputfield.css";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-function EditEmp({ login, setLogin }) {
+const AddEmp = ({ login, setLogin }) => {
   let navigate = useNavigate();
   const [employee, setEmployee] = useState({
     name: "",
@@ -12,45 +12,46 @@ function EditEmp({ login, setLogin }) {
     phone: "",
     dob: "",
   });
-  const { id } = useParams();
-
-  const getEmployee = async () => {
-    const { data } = await axios.get(`http://localhost:3000/employees/${id}`);
-    console.log(data);
-    setEmployee({
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      dob: data.dob,
-    });
-  };
-
-  useEffect(() => {
-    getEmployee();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const handleChange = (e) => {
     setEmployee(() => {
       return { ...employee, [e.target.name]: e.target.value };
     });
   };
 
-  const updateEmploee = async () => {
-    const res = await axios.patch(`http://localhost:3000/employees/${id}`, {
+  const addEmployee = async () => {
+    if (
+      employee.name === "" ||
+      employee.email === "" ||
+      employee.phone === "" ||
+      employee.dob === ""
+    ) {
+      return;
+    }
+
+    const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/employees`, {
       name: employee.name,
       email: employee.email,
       phone: employee.phone,
       dob: employee.dob,
     });
-    console.log(res);
-    console.log("employee updates");
+    if (res.status === 201) {
+      console.log("Empployee Added");
+      setEmployee({
+        name: "",
+        email: "",
+        phone: "",
+        dob: "",
+      });
+    }
   };
   useEffect(() => {
     if (!login) {
-      navigate("/login");
+      return navigate("/login");
     }
   });
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // },[])
 
   return (
     <Box
@@ -72,7 +73,7 @@ function EditEmp({ login, setLogin }) {
         m={3}
         textAlign={"center"}
       >
-        Update Employee
+        ADD Employee
       </Typography>
       <input
         name="name"
@@ -81,8 +82,6 @@ function EditEmp({ login, setLogin }) {
         type={"text"}
         value={employee.name}
         onChange={handleChange}
-        variant="standard" 
-        label={'margin="normal"'}
         required
       />
       <input
@@ -112,11 +111,11 @@ function EditEmp({ login, setLogin }) {
         onChange={handleChange}
         required
       />
-      <Button variant="outlined" onClick={updateEmploee}>
-        Update Employee
+      <Button variant="outlined" onClick={addEmployee}>
+        ADD Employee
       </Button>
     </Box>
   );
-}
+};
 
-export default EditEmp;
+export default AddEmp;

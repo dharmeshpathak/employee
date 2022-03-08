@@ -19,7 +19,7 @@ function Home({ login, setUpLogin }) {
   const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
 
   const getEmployee = useCallback(async () => {
-    const { data } = await axios.get("http://localhost:3000/employees");
+    const { data } = await axios.get(`${process.env.REACT_APP_BASE_URL}/employees`);
 
     // setEmployees(employees.data);
     setEmployees(data);
@@ -34,8 +34,9 @@ function Home({ login, setUpLogin }) {
       ...Array(Math.max(newSize - arr.length, 0)).fill(defaultValue),
     ];
   }
+  
   const deleteEmployee = async (id) => {
-    const res = await axios.delete(`http://localhost:3000/employees/${id}`);
+    const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}/employees/${id}`);
     const newList = employee.filter((emp) => {
       return emp.id !== id;
     });
@@ -64,7 +65,7 @@ function Home({ login, setUpLogin }) {
 
     delEmp.map(
       async (empl, index) =>
-        await axios.delete(`http://localhost:3000/employees/${empl.id}`)
+        await axios.delete(`${process.env.REACT_APP_BASE_URL}/employees/${empl.id}`)
     );
     navigate("/addEmployee");
   };

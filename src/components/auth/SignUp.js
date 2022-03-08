@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Paper, Typography, Box, Button } from "@mui/material";
-import "./AddEmp.css";
+import "../styles/inputfield.css";
 import axios from "axios";
 function SignUp() {
   const [employee, setEmployee] = useState({
@@ -27,7 +27,7 @@ function SignUp() {
       // console.log("password = ",employee.password,"cpassword = ", employee.cpassword)
     }
 
-    const res = await axios.post("http://localhost:3000/users", {
+    const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/users`, {
       username: employee.username,
       password: employee.password,
     });

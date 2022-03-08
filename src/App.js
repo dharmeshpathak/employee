@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 import { BrowserRouter } from "react-router-dom";
-import NewNavbar from "./components/NewNavbar";
+import NewNavbar from "./components/Navbar/NewNavbar";
 function App() {
   const [login, setLogin] = useState(false);
   const setUpLogin = async () => {

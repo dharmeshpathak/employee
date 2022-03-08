@@ -1,12 +1,12 @@
 import * as React from "react";
-import AddEmp from "./AddEmp.js";
-import Home from "./Home";
-import EditEmp from "./EditEmp";
+import AddEmp from "../operations/AddEmp.js";
+import Home from "../mainscreen/Home";
+import EditEmp from "../operations/EditEmp";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
 
-import LoginIn from "./LoginIn";
-import SignUp from "./SignUp";
-import Search from "./Search";
+import LoginIn from "../auth/LoginIn";
+import SignUp from "../auth/SignUp";
+import Search from "../operations/Search";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
