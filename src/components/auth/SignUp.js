@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { Paper, Typography, Box, Button } from "@mui/material";
-import "../../styles/inputfield.css";
-import axios from "axios";
+import { useState } from 'react';
+import { Paper, Typography, Box, Button } from '@mui/material';
+import '../../styles/inputfield.css';
+import instance from '../../api'
 function SignUp() {
   const [employee, setEmployee] = useState({
-    username: "",
-    password: "",
-    cpassword: "",
+    username: '',
+    password: '',
+    cpassword: '',
   });
   const [match, setmatch] = useState(true);
   const handleChange = (e) => {
@@ -18,25 +18,25 @@ function SignUp() {
   const addEmployee = async () => {
     if (employee.cpassword !== employee.password) {
       setmatch(false);
-      // console.log("in if");
-      // console.log("password = ",employee.password,"cpassword = ", employee.cpassword)
+      // console.log('in if');
+      // console.log('password = ',employee.password,'cpassword = ', employee.cpassword)
       return;
     } else if (employee.cpassword === employee.password) {
       setmatch(true);
-      // console.log("in else if")
-      // console.log("password = ",employee.password,"cpassword = ", employee.cpassword)
+      // console.log('in else if')
+      // console.log('password = ',employee.password,'cpassword = ', employee.cpassword)
     }
 
-    const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/users`, {
+    const res = await instance.post(`/users`, {
       username: employee.username,
       password: employee.password,
     });
     if (res.status === 201) {
-      console.log("user Added");
+      console.log('user Added');
       setEmployee({
-        username: "",
-        password: "",
-        cpassword: "",
+        username: '',
+        password: '',
+        cpassword: '',
       });
     }
   };
@@ -46,53 +46,53 @@ function SignUp() {
       elevation={1}
       component={Paper}
       p={4}
-      display="flex"
-      flexDirection={"column"}
-      justifyContent={"center"}
-      alignItems={"center"}
+      display='flex'
+      flexDirection={'column'}
+      justifyContent={'center'}
+      alignItems={'center'}
       maxWidth={700}
-      margin={"auto"}
+      margin={'auto'}
       mt={4}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant='h4'
+        component='h4'
         fontWeight={700}
         m={3}
-        textAlign={"center"}
+        textAlign={'center'}
       >
         SignUp
       </Typography>
       <input
-        name="username"
-        placeholder="Enter usename"
-        className="inputField"
-        type={"text"}
+        name='username'
+        placeholder='Enter usename'
+        className='inputField'
+        type={'text'}
         value={employee.username}
         onChange={handleChange}
         required
       />
 
       <input
-        name="password"
-        placeholder="Enter password"
-        className="inputField"
-        type={"password"}
+        name='password'
+        placeholder='Enter password'
+        className='inputField'
+        type={'password'}
         value={employee.password}
         onChange={handleChange}
         required
       />
-      {!match && <label style={{ color: "red" }}>Passwords do not match</label>}
+      {!match && <label style={{ color: 'red' }}>Passwords do not match</label>}
       <input
-        name="cpassword"
-        placeholder="Confirm Password"
-        className="inputField"
-        type={"password"}
+        name='cpassword'
+        placeholder='Confirm Password'
+        className='inputField'
+        type={'password'}
         value={employee.cpassword}
         onChange={handleChange}
         required
       />
-      <Button variant="outlined" onClick={addEmployee}>
+      <Button variant='outlined' onClick={addEmployee}>
         SignUp
       </Button>
     </Box>

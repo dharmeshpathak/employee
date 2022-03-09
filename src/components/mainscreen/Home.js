@@ -1,16 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import { Paper, Box, Checkbox, Button, ButtonGroup } from "@mui/material";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { useNavigate } from "react-router-dom";
-import instance from '../../api/index'
+import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import { Paper, Checkbox, Button, ButtonGroup } from '@mui/material';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { useNavigate } from 'react-router-dom';
+import instance from '../../api/index';
+import '../../styles/home.css';
 function Home({ login, setUpLogin }) {
   const [employee, setEmployees] = useState([]);
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ function Home({ login, setUpLogin }) {
       ...Array(Math.max(newSize - arr.length, 0)).fill(defaultValue),
     ];
   }
-  
+
   const deleteEmployee = async (id) => {
     const res = await instance.delete(`/employees/${id}`);
     const newList = employee.filter((emp) => {
@@ -43,7 +43,7 @@ function Home({ login, setUpLogin }) {
     setEmployees(newList);
 
     if (res.status !== 404) {
-      console.log("employee deleted");
+      console.log('employee deleted');
     }
   };
   const handleOnChange = (id) => {
@@ -64,49 +64,41 @@ function Home({ login, setUpLogin }) {
     });
 
     delEmp.map(
-      async (empl, index) =>
-        await instance.delete(`/employees/${empl.id}`)
+      async (empl, index) => await instance.delete(`/employees/${empl.id}`)
     );
-    navigate("/addEmployee");
+    navigate('/addEmployee');
   };
 
   useEffect(() => {
     getEmployee();
   }, [getEmployee]);
 
-  useEffect(() => {
-    if (!login) navigate("/login");
-    setUpLogin();
-    // getEmployee();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [login]);
-
+ 
   return (
-    <Box display={"flex"} justifyContent={"center"} m={4}>
-      <TableContainer component={Paper} sx={{ maxWidth: 850 }}>
-        <Table sx={{ minWidth: 688 }} aria-label="simple table">
-          <TableHead style={{ backgroundColor: "#00E" }}>
+    <div>
+      {/* <Paper className='container'> */}
+        <Table component={Paper}>
+          <TableHead style={{ backgroundColor: '#00E' }}>
             <TableRow>
-              <TableCell style={{ color: "white" }}>ID</TableCell>
-              <TableCell style={{ color: "white" }} align="left">
+              <TableCell style={{ color: 'white' }}>ID</TableCell>
+              <TableCell style={{ color: 'white' }} align='left'>
                 Name
               </TableCell>
-              <TableCell style={{ color: "white" }} align="left">
+              <TableCell style={{ color: 'white' }} align='left'>
                 Email
               </TableCell>
-              <TableCell style={{ color: "white" }} align="left">
+              <TableCell style={{ color: 'white' }} align='left'>
                 DOB
               </TableCell>
-              <TableCell style={{ color: "white" }} align="left">
+              <TableCell style={{ color: 'white' }} align='left'>
                 Phone
               </TableCell>
-              <TableCell style={{ color: "white" }} align="center">
+              <TableCell style={{ color: 'white' }} align='center'>
                 Action
               </TableCell>
-              <TableCell style={{ color: "white" }} align="center">
+              <TableCell style={{ color: 'white' }} align='center'>
                 <Button onClick={bulkDelete}>
-                  <DeleteOutlineIcon style={{ color: "white" }} />
+                  <DeleteOutlineIcon style={{ color: 'white' }} />
                 </Button>
               </TableCell>
             </TableRow>
@@ -115,36 +107,36 @@ function Home({ login, setUpLogin }) {
             {employee.map((row, index) => (
               <TableRow
                 key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
+                <TableCell component='th' scope='row'>
                   {row.id}
                 </TableCell>
-                <TableCell align="left">{row.name}</TableCell>
-                <TableCell align="left">{row.email}</TableCell>
-                <TableCell align="left">{row.dob}</TableCell>
-                <TableCell align="left">{row.phone}</TableCell>
-                <TableCell align="center">
+                <TableCell align='left'>{row.name}</TableCell>
+                <TableCell align='left'>{row.email}</TableCell>
+                <TableCell align='left'>{row.dob}</TableCell>
+                <TableCell align='left'>{row.phone}</TableCell>
+                <TableCell align='center'>
                   <ButtonGroup
-                    variant="contained"
-                    aria-label="outlined primary button group"
+                    variant='contained'
+                    aria-label='outlined primary button group'
                   >
                     <Button
                       onClick={() => deleteEmployee(row.id)}
-                      variant="outlined"
+                      variant='outlined'
                     >
                       <DeleteOutlineIcon />
                     </Button>
-                    <Button variant="outlined">
+                    <Button variant='outlined'>
                       <Link to={`/update/${row.id}`}>
                         <EditOutlinedIcon />
                       </Link>
                     </Button>
                   </ButtonGroup>
                 </TableCell>
-                <TableCell align="center">
+                <TableCell align='center'>
                   <Checkbox
-                    type="checkbox"
+                    type='checkbox'
                     id={`custom-checkbox-${index}`}
                     name={row.name}
                     value={row.id}
@@ -156,8 +148,8 @@ function Home({ login, setUpLogin }) {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
-    </Box>
+      {/* </Paper> */}
+    </div>
   );
 }
 

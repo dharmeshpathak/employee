@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react";
-import { Paper, Typography, Box, Button } from "@mui/material";
-import "../../styles/inputfield.css";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { Paper, Typography, Box, Button } from '@mui/material';
+import '../../styles/inputfield.css';
+import { useParams } from 'react-router-dom';
 import instance from '../../api'
 function EditEmp({ login, setLogin }) {
-  let navigate = useNavigate();
+  
   const [employee, setEmployee] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    dob: "",
+    name: '',
+    email: '',
+    phone: '',
+    dob: '',
   });
   const { id } = useParams();
 
@@ -44,75 +43,71 @@ function EditEmp({ login, setLogin }) {
       dob: employee.dob,
     });
     console.log(res);
-    console.log("employee updates");
+    console.log('employee updates');
   };
-  useEffect(() => {
-    if (!login) {
-      navigate("/login");
-    }
-  });
+  
 
   return (
     <Box
       elevation={1}
       component={Paper}
       p={4}
-      display="flex"
-      flexDirection={"column"}
-      justifyContent={"center"}
-      alignItems={"center"}
+      display='flex'
+      flexDirection={'column'}
+      justifyContent={'center'}
+      alignItems={'center'}
       maxWidth={700}
-      margin={"auto"}
+      margin={'auto'}
       mt={4}
     >
       <Typography
-        variant="h4"
-        component="h4"
+        variant='h4'
+        component='h4'
         fontWeight={700}
         m={3}
-        textAlign={"center"}
+        textAlign={'center'}
       >
         Update Employee
       </Typography>
       <input
-        name="name"
-        placeholder="Enter name"
-        className="inputField"
-        type={"text"}
+        name='name'
+        placeholder='Enter name'
+        className='inputField'
+        type={'text'}
         value={employee.name}
         onChange={handleChange}
-        variant="standard" 
-        label={'margin="normal"'}
+        variant='standard' 
+        label={"margin='normal'"}
         required
       />
       <input
-        name="email"
-        placeholder="Enter email"
-        className="inputField"
-        type={"email"}
+        name='email'
+        placeholder='Enter email'
+        className='inputField'
+        type={'email'}
         value={employee.email}
         onChange={handleChange}
         required
-      />{" "}
+      />{' '}
       <input
-        name="phone"
-        placeholder="Enter Phone"
-        className="inputField"
-        type={"text"}
+        name='phone'
+        placeholder='Enter Phone'
+        className='inputField'
+        type={'text'}
         value={employee.phone}
         onChange={handleChange}
         required
       />
       <input
-        name="dob"
-        placeholder="Enter Date of Birth"
-        className="inputField"
-        type={"date"}
+        name='dob'
+        placeholder='Enter Date of Birth'
+        className='inputField'
+        type={'date'}
         value={employee.dob}
         onChange={handleChange}
         required
       />
-      <Button variant="outlined" onClick={updateEmploee}>
+      <Button variant='outlined' onClick={updateEmploee}>
         Update Employee
       </Button>
     </Box>

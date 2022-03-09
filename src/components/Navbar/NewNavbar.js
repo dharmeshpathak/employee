@@ -1,12 +1,8 @@
 import * as React from "react";
-import AddEmp from "../operations/AddEmp.js";
-import Home from "../mainscreen/Home";
-import EditEmp from "../operations/EditEmp";
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
+import {useEffect} from 'react'
 
-import LoginIn from "../auth/LoginIn";
-import SignUp from "../auth/SignUp";
-import Search from "../operations/Search";
+import { Link, useNavigate } from "react-router-dom";
+
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
@@ -75,10 +71,10 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerLeft({ login, setUpLogin }) {
+export default function PersistentDrawerLeft({ login, setUpLogin ,children}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
- 
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -87,10 +83,18 @@ export default function PersistentDrawerLeft({ login, setUpLogin }) {
     setOpen(false);
   };
   const navigate = useNavigate();
-  
+
   React.useEffect(() => {
     setUpLogin();
   });
+  useEffect(() => {
+    if (!login) navigate('/login');
+    setUpLogin();
+    
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [login]);
+
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -118,7 +122,6 @@ export default function PersistentDrawerLeft({ login, setUpLogin }) {
                   color: "white",
                   margin: " 0 5px",
                 }}
-                
               >
                 <Typography textAlign="center">LogIn</Typography>
               </Link>
@@ -201,40 +204,16 @@ export default function PersistentDrawerLeft({ login, setUpLogin }) {
             </ListItem>
           </Link>
         </List>
-        <List>
-          
-        </List>
+        <List></List>
       </Drawer>
 
       <Main open={open}>
         <DrawerHeader />
+        
+        
+        {children}
 
-        <Routes>
-          <Route
-            path="/"
-            element={<Home login={login} setUpLogin={setUpLogin} />}
-          />
-          <Route
-            path="/addemployee"
-            element={<AddEmp login={login} setUpLogin={setUpLogin} />}
-          />
-          <Route
-            path="/search"
-            element={<Search login={login} setUpLogin={setUpLogin} />}
-          />
-          <Route
-            path="/update/:id"
-            element={<EditEmp login={login} setUpLogin={setUpLogin} />}
-          />
-          <Route
-            path="/login"
-            element={<LoginIn login={login} setUpLogin={setUpLogin} />}
-          />
-          <Route
-            path="/signup"
-            element={<SignUp login={login} setUpLogin={setUpLogin} />}
-          />
-        </Routes>
+        
       </Main>
     </Box>
   );

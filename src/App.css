@@ -1,13 +1,10 @@
-body{
+/* body{
   overflow-x: hidden;
 }
 html {
   overflow-y: overlay;
-}
-.main {
-  width: 100vw;
-  /* overflow: hidden; */
-}
+} */
+
 
 .App-logo {
   height: 40vmin;
