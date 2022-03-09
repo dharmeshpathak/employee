@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Paper, Typography, Box, Button } from '@mui/material';
 import '../../styles/inputfield.css';
 import instance from '../../api'
-function SignUp() {
+import NewNavbar from '../Navbar/NewNavbar'
+function SignUp({login,setUpLogin}) {
   const [employee, setEmployee] = useState({
     username: '',
     password: '',
@@ -18,13 +19,11 @@ function SignUp() {
   const addEmployee = async () => {
     if (employee.cpassword !== employee.password) {
       setmatch(false);
-      // console.log('in if');
-      // console.log('password = ',employee.password,'cpassword = ', employee.cpassword)
+      
       return;
     } else if (employee.cpassword === employee.password) {
       setmatch(true);
-      // console.log('in else if')
-      // console.log('password = ',employee.password,'cpassword = ', employee.cpassword)
+     
     }
 
     const res = await instance.post(`/users`, {
@@ -42,6 +41,7 @@ function SignUp() {
   };
 
   return (
+    <NewNavbar login={login} setUpLogin = {setUpLogin}>
     <Box
       elevation={1}
       component={Paper}
@@ -96,6 +96,7 @@ function SignUp() {
         SignUp
       </Button>
     </Box>
+    </NewNavbar>
   );
 }
 

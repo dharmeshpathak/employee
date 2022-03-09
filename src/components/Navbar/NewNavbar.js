@@ -1,8 +1,6 @@
 import * as React from "react";
-import {useEffect} from 'react'
 
 import { Link, useNavigate } from "react-router-dom";
-
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
@@ -87,13 +85,8 @@ export default function PersistentDrawerLeft({ login, setUpLogin ,children}) {
   React.useEffect(() => {
     setUpLogin();
   });
-  useEffect(() => {
-    if (!login) navigate('/login');
-    setUpLogin();
-    
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [login]);
+ 
 
 
   return (

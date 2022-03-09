@@ -3,7 +3,8 @@ import { Paper, Typography, Box, Button } from '@mui/material';
 import '../../styles/inputfield.css';
 import { useParams } from 'react-router-dom';
 import instance from '../../api'
-function EditEmp({ login, setLogin }) {
+import NewNavbar from '../Navbar/NewNavbar'
+function EditEmp({ login, setUpLogin }) {
   
   const [employee, setEmployee] = useState({
     name: '',
@@ -48,6 +49,7 @@ function EditEmp({ login, setLogin }) {
   
 
   return (
+    <NewNavbar login={login} setUpLogin={setUpLogin} >
     <Box
       elevation={1}
       component={Paper}
@@ -111,6 +113,7 @@ function EditEmp({ login, setLogin }) {
         Update Employee
       </Button>
     </Box>
+    </NewNavbar>
   );
 }
 

@@ -2,9 +2,10 @@ import React from 'react';
 import { useState, } from 'react';
 import { Paper, Typography, Box, Button } from '@mui/material';
 import '../../styles/inputfield.css';
+import NewNavbar from '../Navbar/NewNavbar'
 
 import instance from '../../api'
-const AddEmp = ({ login, setLogin }) => {
+const AddEmp = ({ login, setUpLogin }) => {
  
   const [employee, setEmployee] = useState({
     name: '',
@@ -47,6 +48,7 @@ const AddEmp = ({ login, setLogin }) => {
  
 
   return (
+    <NewNavbar login={login} setUpLogin={setUpLogin} >
     <Box
       elevation={1}
       component={Paper}
@@ -108,6 +110,7 @@ const AddEmp = ({ login, setLogin }) => {
         ADD Employee
       </Button>
     </Box>
+    </NewNavbar>
   );
 };
 

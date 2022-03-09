@@ -16,7 +16,8 @@ import { Button, ButtonGroup } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import instance from '../../api'
-const Search = ({ login }) => {
+import NewNavbar from '../Navbar/NewNavbar'
+const Search = ({ login,setUpLogin }) => {
   const [employee, setEmployee] = useState({});
   const [employees, setEmployees] = useState([]);
   const [filterd, setfilter] = useState([]);
@@ -75,6 +76,7 @@ const Search = ({ login }) => {
   
 
   return (
+    <NewNavbar login={login} setUpLogin={setUpLogin} >
     <Container>
       <Box
       key = 'main'
@@ -213,6 +215,7 @@ const Search = ({ login }) => {
         </Box>
       )}
     </Container>
+    </NewNavbar>
   );
 };
 

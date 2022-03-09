@@ -3,6 +3,7 @@ import { Paper, Typography, Box, Button } from '@mui/material';
 import '../../styles/inputfield.css';
 import instance from '../../api'
 import { Link, useNavigate } from 'react-router-dom';
+import NewNavbar from '../Navbar/NewNavbar'
 const LoginIn = ({ setUpLogin, login }) => {
   let navigate = useNavigate();
   const [employee, setEmployee] = useState({
@@ -47,6 +48,7 @@ const LoginIn = ({ setUpLogin, login }) => {
   }, [login]);
 
   return (
+    <NewNavbar login={login} setUpLogin={setUpLogin} >
     <Box
       elevation={1}
       component={Paper}
@@ -104,6 +106,7 @@ const LoginIn = ({ setUpLogin, login }) => {
         SignUp
       </Link>
     </Box>
+    </NewNavbar>
   );
 };
 

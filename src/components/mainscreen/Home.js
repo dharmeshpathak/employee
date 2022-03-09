@@ -8,76 +8,71 @@ import TableRow from '@mui/material/TableRow';
 import { Paper, Checkbox, Button, ButtonGroup } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { useNavigate } from 'react-router-dom';
 import instance from '../../api/index';
-import '../../styles/home.css';
-function Home({ login, setUpLogin }) {
-  const [employee, setEmployees] = useState([]);
-  const navigate = useNavigate();
-  const delEmp = [];
 
-  const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
+import NewNavbar from '../Navbar/NewNavbar'
+
+function Home({ login, setUpLogin }) {
+ 
+  const [employee, setEmployees] = useState([]);
+  
+ const [delEmp, setDelEmp] = useState([]);
+
+  // const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
 
   const getEmployee = useCallback(async () => {
     const { data } = await instance.get(`/employees`);
 
-    // setEmployees(employees.data);
+    
     setEmployees(data);
-    setCheckedState(resize(checkedState, data.length, false));
-    console.log(checkedState);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, []);
 
-  function resize(arr, newSize, defaultValue) {
-    return [
-      ...arr,
-      ...Array(Math.max(newSize - arr.length, 0)).fill(defaultValue),
-    ];
-  }
+  
 
   const deleteEmployee = async (id) => {
     const res = await instance.delete(`/employees/${id}`);
-    const newList = employee.filter((emp) => {
-      return emp.id !== id;
-    });
-    setEmployees(newList);
-
+    getEmployee();
+   
     if (res.status !== 404) {
       console.log('employee deleted');
     }
   };
   const handleOnChange = (id) => {
-    console.log(id);
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === id ? !item : item
-    );
-    setCheckedState(updatedCheckedState);
-    // console.log(checkedState)
+
+    if(delEmp.includes(id)){
+      setDelEmp(delEmp.filter((item)=>item !== id)) 
+    }else{
+      setDelEmp([...delEmp,id])
+      
+    }
+    
   };
 
   const bulkDelete = () => {
-    checkedState.map(async (itemInd, index) => {
-      if (itemInd) {
-        delEmp.push(employee[index]);
-        console.log(delEmp);
-      }
-    });
-
-    delEmp.map(
-      async (empl, index) => await instance.delete(`/employees/${empl.id}`)
+      delEmp.map(
+      async (ids, index) =>  {
+        await instance.delete(`/employees/${ids}`)
+        getEmployee();
+  }
     );
-    navigate('/addEmployee');
+    setDelEmp([]);
+    
+    
   };
 
   useEffect(() => {
     getEmployee();
   }, [getEmployee]);
 
- 
+ useEffect(()=>{
+console.log(delEmp);
+ },[delEmp])
   return (
-    <div>
-      {/* <Paper className='container'> */}
-        <Table component={Paper}>
+    <NewNavbar login={login} setUpLogin={setUpLogin} >
+    <div >
+      <Paper className='container'  style={{margin :'50px auto 0 auto' ,width:'750px'}}>
+        <Table    >
           <TableHead style={{ backgroundColor: '#00E' }}>
             <TableRow>
               <TableCell style={{ color: 'white' }}>ID</TableCell>
@@ -106,7 +101,7 @@ function Home({ login, setUpLogin }) {
           <TableBody>
             {employee.map((row, index) => (
               <TableRow
-                key={row.name}
+                key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component='th' scope='row'>
@@ -136,20 +131,21 @@ function Home({ login, setUpLogin }) {
                 </TableCell>
                 <TableCell align='center'>
                   <Checkbox
-                    type='checkbox'
+                   
                     id={`custom-checkbox-${index}`}
                     name={row.name}
                     value={row.id}
-                    checked={checkedState[index]}
-                    onChange={() => handleOnChange(index)}
+                   
+                    onChange={() => handleOnChange(row.id)}
                   />
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-      {/* </Paper> */}
+      </Paper>
     </div>
+    </NewNavbar>
   );
 }
 

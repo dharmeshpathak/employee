@@ -3,7 +3,6 @@ import Router from "../src/Routes/Router";
 import './App.css';
 
 import { BrowserRouter } from 'react-router-dom';
-import NewNavbar from './components/Navbar/NewNavbar';
 function App() {
   const [login, setLogin] = useState(false);
   const setUpLogin = async () => {
@@ -21,9 +20,9 @@ function App() {
   return (
     <div className='main'>
       <BrowserRouter>
-        <NewNavbar login={login} setUpLogin={setUpLogin} >
+        
         <Router login={login} setUpLogin={setUpLogin} />
-        </NewNavbar>
+        
       </BrowserRouter>
     </div>
   );
