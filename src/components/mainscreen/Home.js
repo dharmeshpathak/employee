@@ -1,29 +1,44 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { Paper, Checkbox, Button, ButtonGroup } from '@mui/material';
+import { Paper, Checkbox, Button, ButtonGroup ,Box,Divider} from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import instance from '../../api/index';
-
+import Toggle from '../mainscreen/Toggle'
 import NewNavbar from '../Navbar/NewNavbar'
-
+import CardElem from '../mainscreen/CardElem'
+import Modl from '../mainscreen/Modal/Modl'
 function Home({ login, setUpLogin }) {
  
   const [employee, setEmployees] = useState([]);
   
  const [delEmp, setDelEmp] = useState([]);
+ const [gridView, setgridView] = useState(false)
+ const [editId, seteditId] = useState("")
 
-  // const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
+ const [open, setOpen] = useState(false);
+  const handleOpen = (id) => {
+    
+    seteditId(id)
+    setOpen(true);}
+  const handleClose = async() =>{ 
+  setOpen(false);}
+ const setView = (value)=>{
+   if(value==='Table')
+   setgridView(false)
+   else if(value ==='Grid')
+   setgridView(true)
+  
+ }
+
 
   const getEmployee = useCallback(async () => {
-    const { data } = await instance.get(`/employees`);
-
-    
+    const {data} = await instance.get(`/employees`);
+   
     setEmployees(data);
    
   }, []);
@@ -46,6 +61,7 @@ function Home({ login, setUpLogin }) {
       setDelEmp([...delEmp,id])
       
     }
+    console.log(delEmp)
     
   };
 
@@ -60,18 +76,26 @@ function Home({ login, setUpLogin }) {
     
     
   };
-
+ 
   useEffect(() => {
     getEmployee();
-  }, [getEmployee]);
+  }, [getEmployee,open]);
 
  useEffect(()=>{
 console.log(delEmp);
  },[delEmp])
+
+
   return (
     <NewNavbar login={login} setUpLogin={setUpLogin} >
-    <div >
-      <Paper className='container'  style={{margin :'50px auto 0 auto' ,width:'750px'}}>
+    <div   >
+    <div style={{display:"flex",justifyContent:"center" ,margin:'20px'}}>
+
+    <Modl open = {open} handleClose = {handleClose}  login={login} setUpLogin={setUpLogin} editId = {editId}  />
+
+    <Toggle setView={setView} /></div>
+    <Divider/>
+      { !gridView && <Paper className='container'  style={{margin :'50px auto 0 auto' ,width:'850px'}}>
         <Table    >
           <TableHead style={{ backgroundColor: '#00E' }}>
             <TableRow>
@@ -122,10 +146,10 @@ console.log(delEmp);
                     >
                       <DeleteOutlineIcon />
                     </Button>
-                    <Button variant='outlined'>
-                      <Link to={`/update/${row.id}`}>
+                    <Button variant='outlined' onClick={()=>handleOpen(row.id)}>
+                      
                         <EditOutlinedIcon />
-                      </Link>
+                     
                     </Button>
                   </ButtonGroup>
                 </TableCell>
@@ -143,7 +167,20 @@ console.log(delEmp);
             ))}
           </TableBody>
         </Table>
-      </Paper>
+        
+      </Paper>}
+
+
+      {gridView && <Box className='container'  style={{margin :'50px auto 0 auto' ,display:"flex",justifyContent:"space-evenly",flexDirection:'column',flexWrap:'wrap'}}>
+
+      <Button style ={{placeSelf:'flex-end',marginRight:'50px'}} variant= 'outlined' onClick ={bulkDelete}>Delete Selected</Button>
+
+      <Box style={{margin :'50px auto 0 auto' ,display:"flex",justifyContent:"space-evenly",flexDirection:'row',flexWrap:'wrap', gap:'20px' }}>
+
+      {employee.map((emp)=><CardElem key = {`card ${emp.id}`} emp = {emp} deleteEmployee={deleteEmployee} handleOnChange={handleOnChange} open = {open} handleClose = {handleClose} handleOpen={handleOpen} />
+      )}</Box>
+        
+      </Box>}
     </div>
     </NewNavbar>
   );

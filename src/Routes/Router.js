@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import React from "react";
 import AddEmp from "../components/operations/AddEmp";
 import Home from "../components/mainscreen/Home";
-import EditEmp from "../components/operations/EditEmp";
 import LoginIn from "../components/auth/LoginIn";
 import SignUp from "../components/auth/SignUp";
 import Search from "../components/operations/Search";
@@ -35,15 +34,7 @@ function Router({ login, setUpLogin }) {
         ) : (
           ""
         )}
-        {localStorage.getItem("userItem") === null ? (
-          <Route
-            exact
-            path="/update/:id"
-            element={<Navigate replace to="/login" />}
-          />
-        ) : (
-          ""
-        )}
+      
         {localStorage.getItem("userItem") === null ? (
           <Route exact path="/" element={<Navigate replace to="/login" />} />
         ) : (
@@ -61,10 +52,7 @@ function Router({ login, setUpLogin }) {
           path="/search"
           element={<Search login={login} setUpLogin={setUpLogin} />}
         />
-        <Route
-          path="/update/:id"
-          element={<EditEmp login={login} setUpLogin={setUpLogin} />}
-        />
+        
         <Route
           path="/login"
           element={<LoginIn login={login} setUpLogin={setUpLogin} />}
