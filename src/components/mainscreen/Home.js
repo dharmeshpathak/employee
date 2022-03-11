@@ -175,7 +175,7 @@ console.log(delEmp);
 
       <Button style ={{placeSelf:'flex-end',marginRight:'50px'}} variant= 'outlined' onClick ={bulkDelete}>Delete Selected</Button>
 
-      <Box style={{margin :'50px auto 0 auto' ,display:"flex",justifyContent:"space-evenly",flexDirection:'row',flexWrap:'wrap', gap:'20px' }}>
+      <Box style={{margin :'50px auto 0 auto' ,display:"flex",justifyContent:"space-evenly",flexDirection:'row',flexWrap:'wrap', gap:'20px',maxWidth:"900px" }}>
 
       {employee.map((emp)=><CardElem key = {`card ${emp.id}`} emp = {emp} deleteEmployee={deleteEmployee} handleOnChange={handleOnChange} open = {open} handleClose = {handleClose} handleOpen={handleOpen} />
       )}</Box>

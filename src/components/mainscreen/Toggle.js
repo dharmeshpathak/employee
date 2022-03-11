@@ -14,7 +14,7 @@ function Toggle({setView}) {
       exclusive
       onChange={handleChange}
     >
-      <ToggleButton value="Table" onClick={(e)=>setView(e.target.value)}>Table</ToggleButton>
+      <ToggleButton value="Table" onClick={(e)=>setView(e.target.value)}>List</ToggleButton>
       <ToggleButton value="Grid" onClick={(e)=>setView(e.target.value)}>Grid</ToggleButton>
      
     </ToggleButtonGroup>
