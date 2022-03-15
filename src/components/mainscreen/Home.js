@@ -12,6 +12,7 @@ import Toggle from '../mainscreen/Toggle'
 import NewNavbar from '../Navbar/NewNavbar'
 import CardElem from '../mainscreen/CardElem'
 import Modl from '../mainscreen/Modal/Modl'
+import "../../styles/table.css"
 function Home({ login, setUpLogin }) {
  
   const [employee, setEmployees] = useState([]);
@@ -171,11 +172,11 @@ console.log(delEmp);
       </Paper>}
 
 
-      {gridView && <Box className='container'  style={{margin :'50px auto 0 auto' ,display:"flex",justifyContent:"space-evenly",flexDirection:'column',flexWrap:'wrap'}}>
+      {gridView && <Box   style={{margin :'50px auto 0 auto' ,display:"flex",justifyContent:"space-evenly",flexDirection:'column',flexWrap:'wrap'}}>
 
-      <Button style ={{placeSelf:'flex-end',marginRight:'50px'}} variant= 'outlined' onClick ={bulkDelete}>Delete Selected</Button>
+     {(delEmp.length>0) && <Button style ={{placeSelf:'flex-end',marginRight:'50px'}} variant= 'outlined' onClick ={bulkDelete}>Delete Selected</Button>}
 
-      <Box style={{margin :'50px auto 0 auto' ,display:"flex",justifyContent:"space-evenly",flexDirection:'row',flexWrap:'wrap', gap:'20px',maxWidth:"900px" }}>
+      <Box style={{margin :'50px auto 0 auto' ,display:"flex",justifyContent:"space-evenly",flexDirection:'row',flexWrap:'wrap', gap:'20px',maxWidth:"940px" }}>
 
       {employee.map((emp)=><CardElem key = {`card ${emp.id}`} emp = {emp} deleteEmployee={deleteEmployee} handleOnChange={handleOnChange} open = {open} handleClose = {handleClose} handleOpen={handleOpen} />
       )}</Box>

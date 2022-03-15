@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, } from 'react';
-import { Paper, Typography, Box, Button } from '@mui/material';
+import { Paper, Typography, Box, Button, TextField } from '@mui/material';
 import '../../styles/inputfield.css';
 import NewNavbar from '../Navbar/NewNavbar'
 
@@ -53,15 +53,19 @@ const AddEmp = ({ login, setUpLogin }) => {
       elevation={1}
       component={Paper}
       p={4}
-      display='flex'
-      flexDirection={'column'}
-      justifyContent={'center'}
-      alignItems={'center'}
-      maxWidth={700}
-      margin={'auto'}
+      display="flex"
+      flexDirection={"column"}
+     
       mt={4}
+      gap={2}
+      margin = {"auto"}
+      maxWidth={"600px"}
+      alignItems={"center"}
+      
+      
     >
       <Typography
+     
         variant='h4'
         component='h4'
         fontWeight={700}
@@ -70,25 +74,30 @@ const AddEmp = ({ login, setUpLogin }) => {
       >
         ADD Employee
       </Typography>
-      <input
+      <TextField
+     
         name='name'
         placeholder='Enter name'
         className='inputField'
         type={'text'}
         value={employee.name}
         onChange={handleChange}
+        style={{width:"100%"}}
         required
       />
-      <input
+      <TextField
         name='email'
         placeholder='Enter email'
         className='inputField'
         type='email'
+        style={{width:"100%"}}
+       
         value={employee.email}
         onChange={handleChange}
         required
       />{' '}
-      <input
+      <TextField
+      style={{width:"100%"}}
         name='phone'
         placeholder='Enter Phone'
         className='inputField'
@@ -97,7 +106,8 @@ const AddEmp = ({ login, setUpLogin }) => {
         onChange={handleChange}
         required
       />
-      <input
+      <TextField
+     style={{width:"100%"}}
         name='dob'
         placeholder='Enter Date of Birth'
         className='inputField'
@@ -106,7 +116,9 @@ const AddEmp = ({ login, setUpLogin }) => {
         onChange={handleChange}
         required
       />
-      <Button variant='outlined' onClick={addEmployee}>
+      <Button 
+     style={{alignSelf:"center"}}
+      variant='outlined' onClick={addEmployee}>
         ADD Employee
       </Button>
     </Box>

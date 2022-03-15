@@ -4,7 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Container, Paper, TextField, Typography } from '@mui/material';
+import {  Paper, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -17,6 +17,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import instance from '../../api'
 import NewNavbar from '../Navbar/NewNavbar'
+import "../../styles/table.css"
 const Search = ({ login,setUpLogin }) => {
   const [employee, setEmployee] = useState({});
   const [employees, setEmployees] = useState([]);
@@ -77,7 +78,7 @@ const Search = ({ login,setUpLogin }) => {
 
   return (
     <NewNavbar login={login} setUpLogin={setUpLogin} >
-    <Container>
+    <Box >
       <Box
       key = 'main'
         sx={{ minWidth: 120, maxWidth: 450 }}
@@ -134,8 +135,8 @@ const Search = ({ login,setUpLogin }) => {
 
       {(searchField===''?employees.length:filterd.length )> 0 ? (
         <Box display={'flex'} justifyContent={'center'}  mt = {6} key = 'box1'>
-          <TableContainer component={Paper} sx={{ maxWidth: 750 }}>
-            <Table sx={{ minWidth: 688 }} aria-label='simple table'>
+          <TableContainer className='container' component={Paper} sx={{ maxWidth: 750 }}>
+            <Table aria-label='simple table'>
               <TableHead style={{ backgroundColor: 'black' }}>
                 <TableRow key ='head1'>
                   <TableCell style={{ color: 'white' }} key='id'>ID</TableCell>
@@ -214,7 +215,7 @@ const Search = ({ login,setUpLogin }) => {
           </Typography>
         </Box>
       )}
-    </Container>
+    </Box>
     </NewNavbar>
   );
 };

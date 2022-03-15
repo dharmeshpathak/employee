@@ -1,0 +1,40 @@
+@media screen and (max-width:850px) {
+  .container {
+    overflow-x: auto;
+    width:650px !important;
+    display: block;
+  }
+  
+}
+
+
+
+
+
+@media screen and (max-width:770px) {
+  .container {
+    overflow-x: auto;
+    width:550px !important;
+    display: block;
+  }
+  
+}
+
+@media screen and (max-width:580px) {
+  .container {
+    /* overflow-x: auto; */
+    width:400px !important; 
+    display: block;
+  }
+  
+}
+
+
+@media screen and (max-width:420px) {
+  .container {
+    /* overflow-x: auto; */
+    width:150px !important; 
+    display: block;
+  }
+  
+}

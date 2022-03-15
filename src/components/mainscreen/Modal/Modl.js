@@ -1,7 +1,7 @@
 import React,{ useEffect, useState,useCallback } from 'react'
 import { styled, Box } from '@mui/system';
 import ModalUnstyled from '@mui/base/ModalUnstyled';
-import { Paper, Typography, Button } from '@mui/material';
+import { Paper, Typography, Button,TextField } from '@mui/material';
 import instance from '../../../api'
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
@@ -87,8 +87,9 @@ function Modl({open,handleClose,editId}) {
       display='flex'
       flexDirection={'column'}
       justifyContent={'center'}
-      alignItems={'center'}
+      
       maxWidth={700}
+      gap={2}
       margin={'auto'}
      >
         <Typography
@@ -100,18 +101,18 @@ function Modl({open,handleClose,editId}) {
       >
         Update Employee
       </Typography>
-      <input
+      <TextField
         name='name'
         placeholder='Enter name'
         className='inputField'
         type={'text'}
         value={employee.name}
         onChange={handleChange}
-        variant='standard' 
-        label={"margin='normal'"}
+       
+        
         required
       />
-      <input
+      <TextField
         name='email'
         placeholder='Enter email'
         className='inputField'
@@ -120,7 +121,7 @@ function Modl({open,handleClose,editId}) {
         onChange={handleChange}
         required
       />{' '}
-      <input
+      <TextField
         name='phone'
         placeholder='Enter Phone'
         className='inputField'
@@ -129,16 +130,19 @@ function Modl({open,handleClose,editId}) {
         onChange={handleChange}
         required
       />
-      <input
+      <TextField
         name='dob'
         placeholder='Enter Date of Birth'
         className='inputField'
         type={'date'}
         value={employee.dob}
         onChange={handleChange}
+        
         required
       />
-      <Button variant='outlined' onClick={()=>{updateEmploee();
+      <Button variant='outlined' 
+     style={{alignSelf:"center"}}
+      onClick={()=>{updateEmploee();
       handleClose();
      
       }}>

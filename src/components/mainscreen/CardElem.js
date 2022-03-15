@@ -1,5 +1,8 @@
 import React from 'react'
 import {Card,CardActions,CardMedia,Button,Typography,CardContent, Checkbox} from '@mui/material';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import CelebrationIcon from '@mui/icons-material/Celebration';
 import  '../../styles/card.css'
 const idStyle = {
   position:"absolute",
@@ -12,11 +15,16 @@ const idStyle = {
   display:'flex',
   justifyContent:'center',
   alignItems:'center' ,
-  margin:'0px'
+  margin:'0px',
+  color:'burlywood'
 }
 const checkboxStyle = {position:'absolute',top:'10px',right:'10px',border:'none',background:'white'};
 const infoStyle = {display
-  :'flex' ,justifyContent:'space-between'}
+  :'flex' ,justifyContent:'center', alignItems:"center",
+  color:'burlywood',
+  margin:'8px 0px'
+  
+}
   const overlayPicture = {position:'absolute',
   width:"85px",
   height:"85px",
@@ -30,7 +38,7 @@ const infoStyle = {display
 }
 const ballStyle = {content: " ",
   
-backgroundImage: "linear-gradient(blue, white)",
+backgroundImage: "linear-gradient(burlywood, white)",
 width: "20px",
 height: "20px",
 borderRadius: "50%",
@@ -69,26 +77,20 @@ function CardElem({emp,deleteEmployee,handleOnChange,handleOpen}) {
           {emp.name}
         </Typography>
         <Typography variant="body2" color="text.secondary" style={infoStyle}>
-        <span style={{fontWeight:'600'}}>
-         Email</span>
-         <span>
-          {emp.email}</span>
+        <MailOutlineIcon style={{color:'burlywood',margin:"0 4px"}}/>
+          {emp.email}
         </Typography>
         <Typography variant="body2" color="text.secondary" style={infoStyle}>
-        <span style={{fontWeight:'600'}}>
-         Contact</span>
-         <span>
-          {emp.phone}</span>
+        <PhoneIphoneIcon style={{color:'burlywood',margin:"0 4px"}}/>
+          {emp.phone}
         </Typography>
         <Typography variant="body2" color="text.secondary" style={infoStyle}>
-        <span style={{fontWeight:'600'}}>
-         Birth Date</span>
-         <span>
-          {emp.dob}</span>
+        <CelebrationIcon style={{margin:"0 4px"}}/>
+          {emp.dob}
         </Typography>
         
       </CardContent>
-      <CardActions>
+      <CardActions style={{display:"flex",justifyContent:'center'}}>
         <Button size="small" onClick={()=>handleOpen(emp.id)}>Edit</Button>
         <Button size="small" onClick={()=>deleteEmployee(emp.id)}>Delete</Button>
       </CardActions>
