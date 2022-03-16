@@ -5,23 +5,31 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {  Paper, TextField, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { Button, ButtonGroup } from '@mui/material';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import instance from '../../api'
 import NewNavbar from '../Navbar/NewNavbar'
 import "../../styles/table.css"
+import Modl from "../mainscreen/Modal/Modl";
+import OptionMenu from "../mainscreen/OptionMenu"
 const Search = ({ login,setUpLogin }) => {
   const [employee, setEmployee] = useState({});
   const [employees, setEmployees] = useState([]);
   const [filterd, setfilter] = useState([]);
+  const [editId, seteditId] = useState("");
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = (id) => {
+    seteditId(id);
+    setOpen(true);
+  };
+  const handleClose = async () => {
+    setOpen(false);
+  };
  
   const getEmployeeField = async () => {
     const { data } = await instance.get(`/employees`);
@@ -65,11 +73,13 @@ const Search = ({ login,setUpLogin }) => {
     setSearchField(event.target.value);
     // console.log(event.target.value);
   };
+
   useEffect(() => {
     getEmployeeField();
-  }, []);
+  }, [open]);
+
   useEffect(() => {
-    console.log('searchField = ', searchField, 'searchText=', searchText);
+    // console.log('searchField = ', searchField, 'searchText=', searchText);
     filterItems(searchField, searchText);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchField, searchText, employees]);
@@ -78,7 +88,15 @@ const Search = ({ login,setUpLogin }) => {
 
   return (
     <NewNavbar login={login} setUpLogin={setUpLogin} >
+    
     <Box >
+    <Modl
+            open={open}
+            handleClose={handleClose}
+            login={login}
+            setUpLogin={setUpLogin}
+            editId={editId}
+          />
       <Box
       key = 'main'
         sx={{ minWidth: 120, maxWidth: 450 }}
@@ -113,21 +131,22 @@ const Search = ({ login,setUpLogin }) => {
             onChange={handleChange}
           >
             {Object.keys(employee).map((item) => (
-              <MenuItem value={item} key={item.id}>
+              <MenuItem value={item} key={item}>
+             
                 {item}
               </MenuItem>
             ))}
           </Select>
           <TextField
             id='outlined-basic'
-            label='Outlined'
+            label='Type Here'
             variant='outlined'
             style={{ marginTop: '20px' }}
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
 
-              // filterItems(searchField, searchText);
+              
             }}
           />
         </FormControl>
@@ -171,24 +190,15 @@ const Search = ({ login,setUpLogin }) => {
                     <TableCell align='right'>{row.email}</TableCell>
                     <TableCell align='right'>{row.dob}</TableCell>
                     <TableCell align='right'>{row.phone}</TableCell>
-                    <TableCell align='right'>
-                      <ButtonGroup
-                        variant='contained'
-                        aria-label='outlined primary button group'
-                      >
-                        <Button
-                          onClick={() => deleteEmployee(row.id)}
-                          variant='outlined'
-                        >
-                          <DeleteOutlineIcon />
-                        </Button>
-                        <Button variant='outlined'>
-                          <Link to={`/update/${row.id}`}>
-                            <EditOutlinedIcon />
-                          </Link>
-                        </Button>
-                      </ButtonGroup>
+                    <TableCell>
+                      <OptionMenu
+                        handleOpen={handleOpen}
+                        deleteEmployee={deleteEmployee}
+                        id={row.id}
+                        handleClose={handleClose}
+                      />
                     </TableCell>
+                    
                   </TableRow>
                 ))}
               </TableBody>
