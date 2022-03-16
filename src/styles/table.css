@@ -33,7 +33,7 @@
 @media screen and (max-width:420px) {
   .container {
     /* overflow-x: auto; */
-    width:150px !important; 
+    width:320px !important; 
     display: block;
   }
   

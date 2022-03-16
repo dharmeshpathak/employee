@@ -1,27 +1,22 @@
 import * as React from "react";
 
 import { Link, useNavigate } from "react-router-dom";
+import {Box,Drawer,CssBaseline,Toolbar,List,Typography,Divider,IconButton,ListItem,ListItemIcon,ListItemText} from '@mui/material'
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { styled, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
+
+
 import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
+
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 
+import "../../styles/drawer.css"
+import { useEffect } from "react";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -85,6 +80,14 @@ export default function PersistentDrawerLeft({ login, setUpLogin ,children}) {
   React.useEffect(() => {
     setUpLogin();
   });
+  // const wit = window.screen.availHeight
+const [wit, setwit] = React.useState( window.innerWidth);
+
+
+  useEffect(()=>{
+    console.log(wit)
+    setwit(window.innerWidth)
+  },[wit])
 
 
   
@@ -141,7 +144,7 @@ export default function PersistentDrawerLeft({ login, setUpLogin ,children}) {
             boxSizing: "border-box",
           },
         }}
-        variant="persistent"
+        variant={wit>600?"persistent":""}
         anchor="left"
         open={open}
       >
@@ -203,7 +206,7 @@ export default function PersistentDrawerLeft({ login, setUpLogin ,children}) {
         <List></List>
       </Drawer>
 
-      <Main open={open}>
+      <Main open={open} className="navbar-area">
         <DrawerHeader />
         
         
