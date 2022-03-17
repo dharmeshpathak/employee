@@ -10,17 +10,21 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import {deleteEmployee} from '../../actions/index'
+import { useDispatch } from "react-redux";
 const options = [
   <EditOutlinedIcon style={{ margin: "2px 4px" }} />,
   <DeleteOutlineIcon style={{ margin: "2px 4px" }} />,
 ];
 
 export default function SplitButton({
-  deleteEmployee,
+ 
   handleOpen,
   id,
   handleClose,
 }) {
+
+  const dispatch = useDispatch();
   const [openOption, setOpenOption] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -56,7 +60,7 @@ export default function SplitButton({
         style={{backgroundColor:"white",
         }}
           onClick={() => {
-            selectedIndex === 0 ? handleOpen(id) : deleteEmployee(id);
+            selectedIndex === 0 ? handleOpen(id) : dispatch(deleteEmployee(id));
           }}
         >
           {options[selectedIndex]}

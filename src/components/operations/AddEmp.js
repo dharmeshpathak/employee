@@ -4,8 +4,11 @@ import { Paper, Typography, Box, Button, TextField } from '@mui/material';
 import '../../styles/inputfield.css';
 import NewNavbar from '../Navbar/NewNavbar'
 
-import instance from '../../api'
+import {addEmployees} from '../../actions/index'
+import { useDispatch } from 'react-redux';
 const AddEmp = ({ login, setUpLogin }) => {
+
+  const dispatch = useDispatch();
  
   const [employee, setEmployee] = useState({
     name: '',
@@ -19,33 +22,8 @@ const AddEmp = ({ login, setUpLogin }) => {
     });
   };
 
-  const addEmployee = async () => {
-    if (
-      employee.name === '' ||
-      employee.email === '' ||
-      employee.phone === '' ||
-      employee.dob === ''
-    ) {
-      return;
-    }
+  
 
-    const res = await instance.post(`/employees`, {
-      name: employee.name,
-      email: employee.email,
-      phone: employee.phone,
-      dob: employee.dob,
-    });
-    if (res.status === 201) {
-      console.log('Empployee Added');
-      setEmployee({
-        name: '',
-        email: '',
-        phone: '',
-        dob: '',
-      });
-    }
-  };
- 
 
   return (
     <NewNavbar login={login} setUpLogin={setUpLogin} >
@@ -118,7 +96,17 @@ const AddEmp = ({ login, setUpLogin }) => {
       />
       <Button 
      style={{alignSelf:"center"}}
-      variant='outlined' onClick={addEmployee}>
+      variant='outlined' 
+      
+      onClick={()=>{dispatch(addEmployees(employee));
+      setEmployee({
+    name: '',
+    email: '',
+    phone: '',
+    dob: '',
+  })
+      }}
+      >
         ADD Employee
       </Button>
     </Box>

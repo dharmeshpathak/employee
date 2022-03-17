@@ -85,7 +85,7 @@ const [wit, setwit] = React.useState( window.innerWidth);
 
 
   useEffect(()=>{
-    console.log(wit)
+    // console.log(wit)
     setwit(window.innerWidth)
   },[wit])
 
@@ -144,7 +144,7 @@ const [wit, setwit] = React.useState( window.innerWidth);
             boxSizing: "border-box",
           },
         }}
-        variant={wit>600?"persistent":""}
+        variant={wit>600?"persistent":"temporary"}
         anchor="left"
         open={open}
       >

@@ -1,34 +1,38 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import {
-  Paper,
-  Checkbox,
-  Button,
-  Box,
-  Divider,
-} from "@mui/material";
+import { Paper, Checkbox, Button, Box, Divider } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import instance from "../../api/index";
 import Toggle from "../mainscreen/Toggle";
 import NewNavbar from "../Navbar/NewNavbar";
 import CardElem from "../mainscreen/CardElem";
 import Modl from "../mainscreen/Modal/Modl";
 import OptionMenu from "../mainscreen/OptionMenu";
 import "../../styles/table.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getEmployees,
+  deleteEmployees,
+  getEmployee,
+} from "../../actions/index";
+import { SET_ID } from "../../actions/types";
 function Home({ login, setUpLogin }) {
-  const [employee, setEmployees] = useState([]);
+  const employee = useSelector((state) => state.employees.emply);
+  const selectedEmp = useSelector((state) => state.employees.selectedEmployee);
+  const selectedid = useSelector((state) => state.employees.selectedId);
+  const dispatch = useDispatch();
 
   const [delEmp, setDelEmp] = useState([]);
   const [gridView, setgridView] = useState(false);
-  const [editId, seteditId] = useState("");
 
   const [open, setOpen] = useState(false);
   const handleOpen = (id) => {
-    seteditId(id);
+    dispatch({ type: SET_ID, payload: id });
+    dispatch(getEmployee());
+
     setOpen(true);
   };
   const handleClose = async () => {
@@ -39,44 +43,17 @@ function Home({ login, setUpLogin }) {
     else if (value === "Grid") setgridView(true);
   };
 
-  const getEmployee = useCallback(async () => {
-    const { data } = await instance.get(`/employees`);
-    console.log(data);
-    setEmployees(data);
-  }, []);
-
-  const deleteEmployee = async (id) => {
-    const res = await instance.delete(`/employees/${id}`);
-    getEmployee();
-
-    if (res.status !== 404) {
-      console.log("employee deleted");
-    }
-  };
   const handleOnChange = (id) => {
     if (delEmp.includes(id)) {
       setDelEmp(delEmp.filter((item) => item !== id));
     } else {
       setDelEmp([...delEmp, id]);
     }
-    console.log(delEmp);
-  };
-
-  const bulkDelete = () => {
-    delEmp.map(async (ids, index) => {
-      await instance.delete(`/employees/${ids}`);
-      getEmployee();
-    });
-    setDelEmp([]);
   };
 
   useEffect(() => {
-    getEmployee();
-  }, [getEmployee, open]);
-
-  useEffect(() => {
-    console.log(delEmp);
-  }, [delEmp]);
+    dispatch(getEmployees());
+  }, [dispatch]);
 
   return (
     <NewNavbar login={login} setUpLogin={setUpLogin}>
@@ -89,7 +66,8 @@ function Home({ login, setUpLogin }) {
             handleClose={handleClose}
             login={login}
             setUpLogin={setUpLogin}
-            editId={editId}
+            selectedEmp={selectedEmp}
+            editId={selectedid}
           />
 
           <Toggle setView={setView} />
@@ -103,9 +81,12 @@ function Home({ login, setUpLogin }) {
             <Table>
               <TableHead style={{ backgroundColor: "#00E" }}>
                 <TableRow>
-                <TableCell style={{ color: "white" }} align="center">
-                    <Button  onClick={bulkDelete} disabled={delEmp.length===0}>
-                    <DeleteOutlineIcon style={{ color: "white" }}/> 
+                  <TableCell style={{ color: "white" }} align="center">
+                    <Button
+                      onClick={() => dispatch(deleteEmployees(delEmp))}
+                      disabled={delEmp.length === 0}
+                    >
+                      <DeleteOutlineIcon style={{ color: "white" }} />
                     </Button>
                   </TableCell>
                   <TableCell style={{ color: "white" }}>ID</TableCell>
@@ -124,8 +105,6 @@ function Home({ login, setUpLogin }) {
                   <TableCell style={{ color: "white" }} align="center">
                     Action
                   </TableCell>
-                  
-                  
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -134,7 +113,7 @@ function Home({ login, setUpLogin }) {
                     key={row.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                  <TableCell align="center">
+                    <TableCell align="center">
                       <Checkbox
                         id={`custom-checkbox-${index}`}
                         name={row.name}
@@ -150,16 +129,13 @@ function Home({ login, setUpLogin }) {
                     <TableCell align="left">{row.dob}</TableCell>
                     <TableCell align="left">{row.phone}</TableCell>
 
-                    
                     <TableCell>
                       <OptionMenu
                         handleOpen={handleOpen}
-                        deleteEmployee={deleteEmployee}
                         id={row.id}
                         handleClose={handleClose}
                       />
                     </TableCell>
-                    
                   </TableRow>
                 ))}
               </TableBody>
@@ -177,16 +153,14 @@ function Home({ login, setUpLogin }) {
               flexWrap: "wrap",
             }}
           >
-            
-              <Button
-                style={{ placeSelf: "flex-end", marginRight: "50px" }}
-                variant="outlined"
-                onClick={bulkDelete}
-                disabled={delEmp.length === 0}
-              >
-                Delete Selected
-              </Button>
-           
+            <Button
+              style={{ placeSelf: "flex-end", marginRight: "50px" }}
+              variant="outlined"
+              onClick={() => dispatch(deleteEmployees(delEmp))}
+              disabled={delEmp.length === 0}
+            >
+              Delete Selected
+            </Button>
 
             <Box
               style={{
@@ -203,7 +177,6 @@ function Home({ login, setUpLogin }) {
                 <CardElem
                   key={`card ${emp.id}`}
                   emp={emp}
-                  deleteEmployee={deleteEmployee}
                   handleOnChange={handleOnChange}
                   open={open}
                   handleClose={handleClose}
