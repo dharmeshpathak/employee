@@ -1,4 +1,4 @@
-import {ADD_USER,MATCH_USER,LOGIN_USER,LOGOUT_USER} from '../actions/types'
+import {ADD_USER,MATCH_USER,LOGIN_USER,LOGOUT_USER, CHECK_USER} from '../actions/types'
 const initialValues = {
     match:false,
     validUser:true,
@@ -18,10 +18,17 @@ export const userReducer=(state=initialValues,action)=>{
             loggedInUser:action.payload.loggedInUser,
             login:action.payload.login
         }
-        case LOGOUT_USER:console.log(action);
+        case LOGOUT_USER:
         return{
             ...state,
             login:action.payload.log
+        }
+        case CHECK_USER:console.log(action);
+        
+        return {
+            ...state,
+            loggedInUser:action.payload.loggedInUser,
+            login:action.payload.login
         }
         
         default:return state;    

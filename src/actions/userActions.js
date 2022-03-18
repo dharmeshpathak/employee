@@ -2,7 +2,8 @@ import {
     ADD_USER,
     MATCH_USER,
     LOGIN_USER,
-    LOGOUT_USER
+    LOGOUT_USER,
+    CHECK_USER
   } from "./types";
   import instance from "../api/index";
 
@@ -57,8 +58,20 @@ import {
   }}
 
     export const logoutUser = ()=>{
-    return async (dispatch)=>{
+    return  (dispatch)=>{
       localStorage.clear();
       dispatch({type:LOGOUT_USER,payload:false})
+    }
+  }
+  export const checkUser = ()=>{
+    return (dispatch)=>{
+      const user = localStorage.getItem('userItem');
+      console.log("user= ",user);
+      if(user!==null)
+      {
+        dispatch({type:CHECK_USER,payload:{loggedInUser:JSON.parse(user),login:true}})
+    }else{
+      dispatch({type:CHECK_USER,payload:{loggedInUser:'',login:false}})
+    }
     }
   }

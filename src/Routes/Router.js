@@ -1,22 +1,43 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-
+import {useEffect} from 'react'
 import React from "react";
 import AddEmp from "../components/operations/AddEmp";
 import Home from "../components/mainscreen/Home";
 import LoginIn from "../components/auth/LoginIn";
 import SignUp from "../components/auth/SignUp";
 import Search from "../components/operations/Search";
+import { useDispatch, useSelector } from "react-redux";
+import {checkUser} from '../actions/userActions';
+import { useState } from "react";
 
 function Router({ login, setUpLogin }) {
+  const dispatch = useDispatch();
+  const [user, setuser] = useState({})
+  const local = localStorage.length
+  const person = useSelector(state=>state.user.loggedInUser)
+
+  console.log(person)
+  console.log(user)
+  
+  useEffect(() => {
+   
+    dispatch(checkUser());
+    
+    
+  }, [dispatch,local])
+  useEffect(()=>{
+    setuser(person)
+  },[person])
+  
   return (
     <div>
       <Routes>
-        {localStorage.getItem("userItem") === null ? (
+        {user=== (null || '') ? (
           <Route exact path="/" element={<Navigate replace to="/login" />} />
         ) : (
           ""
         )}
-        {localStorage.getItem("userItem") === null ? (
+        {user=== (null || '')? (
           <Route
             exact
             path="/addemployee"
@@ -25,7 +46,7 @@ function Router({ login, setUpLogin }) {
         ) : (
           ""
         )}
-        {localStorage.getItem("userItem") === null ? (
+        {user=== (null || '')? (
           <Route
             exact
             path="/Search"
@@ -35,7 +56,7 @@ function Router({ login, setUpLogin }) {
           ""
         )}
       
-        {localStorage.getItem("userItem") === null ? (
+        {user=== (null || '')? (
           <Route exact path="/" element={<Navigate replace to="/login" />} />
         ) : (
           ""
@@ -52,6 +73,7 @@ function Router({ login, setUpLogin }) {
           path="/search"
           element={<Search login={login} setUpLogin={setUpLogin} />}
         />
+
         
         <Route
           path="/login"
@@ -61,6 +83,7 @@ function Router({ login, setUpLogin }) {
           path="/signup"
           element={<SignUp login={login} setUpLogin={setUpLogin} />}
         />
+
       </Routes>
     </div>
   );
