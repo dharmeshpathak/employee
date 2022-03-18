@@ -2,7 +2,7 @@ import React,{ useEffect, useState,useCallback } from 'react'
 import { styled, Box } from '@mui/system';
 import ModalUnstyled from '@mui/base/ModalUnstyled';
 import { Paper, Typography, Button,TextField } from '@mui/material';
-import instance from '../../../api'
+import instance from 'api'
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
   z-index: 1300;

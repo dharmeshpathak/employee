@@ -1,19 +1,9 @@
 import { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import {  Paper, TextField, Typography } from '@mui/material';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import instance from '../../api'
+import {Box,InputLabel,MenuItem,FormControl,Select,Paper,TextField,Typography,Table,TableBody,TableCell,TableContainer,TableHead,TableRow,} from '@mui/material';
+
+import instance from 'api'
 import NewNavbar from '../Navbar/NewNavbar'
-import "../../styles/table.css"
+import "styles/table.css"
 import Modl from "../mainscreen/Modal/Modl";
 import OptionMenu from "../mainscreen/OptionMenu"
 const Search = ({ login,setUpLogin }) => {

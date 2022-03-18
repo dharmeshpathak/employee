@@ -3,7 +3,7 @@ import {Card,CardActions,CardMedia,Button,Typography,CardContent, Checkbox} from
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import CelebrationIcon from '@mui/icons-material/Celebration';
-import  '../../styles/card.css'
+import  'styles/card.css'
 const idStyle = {
   position:"absolute",
   top:"10px",

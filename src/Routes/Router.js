@@ -1,11 +1,11 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import React from "react";
-import AddEmp from "../components/operations/AddEmp";
-import Home from "../components/mainscreen/Home";
-import LoginIn from "../components/auth/LoginIn";
-import SignUp from "../components/auth/SignUp";
-import Search from "../components/operations/Search";
+import AddEmp from "components/operations/AddEmp";
+import Home from "components/mainscreen/Home";
+import LoginIn from "components/auth/LoginIn";
+import SignUp from "components/auth/SignUp";
+import Search from "components/operations/Search";
 
 function Router({ login, setUpLogin }) {
   return (

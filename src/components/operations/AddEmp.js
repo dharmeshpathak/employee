@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, } from 'react';
 import { Paper, Typography, Box, Button, TextField } from '@mui/material';
-import '../../styles/inputfield.css';
+import 'styles/inputfield.css';
 import NewNavbar from '../Navbar/NewNavbar'
 
 import instance from '../../api'

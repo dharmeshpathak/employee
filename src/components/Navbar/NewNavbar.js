@@ -15,7 +15,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-import "../../styles/drawer.css"
+import "styles/drawer.css"
 import { useEffect } from "react";
 const drawerWidth = 240;
 

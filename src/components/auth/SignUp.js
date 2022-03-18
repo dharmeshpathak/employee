@@ -1,6 +1,6 @@
 import { Paper, Typography, Box, Button, TextField } from "@mui/material";
-import "../../styles/inputfield.css";
-import instance from "../../api";
+import "styles/inputfield.css";
+import instance from "api";
 import NewNavbar from "../Navbar/NewNavbar";
 import * as yup from "yup";
 import React, { useState } from "react";

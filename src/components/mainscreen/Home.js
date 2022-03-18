@@ -1,9 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import {Table,TableBody,TableCell,TableHead,TableRow} from '@mui/material';
+
 import {
   Paper,
   Checkbox,
@@ -12,13 +9,13 @@ import {
   Divider,
 } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import instance from "../../api/index";
+import instance from "api/index";
 import Toggle from "../mainscreen/Toggle";
 import NewNavbar from "../Navbar/NewNavbar";
 import CardElem from "../mainscreen/CardElem";
 import Modl from "../mainscreen/Modal/Modl";
 import OptionMenu from "../mainscreen/OptionMenu";
-import "../../styles/table.css";
+import "styles/table.css";
 function Home({ login, setUpLogin }) {
   const [employee, setEmployees] = useState([]);
 

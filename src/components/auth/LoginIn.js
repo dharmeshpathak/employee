@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Paper, Typography, Box, Button, TextField } from "@mui/material";
-import "../../styles/inputfield.css";
-import instance from "../../api";
+import "styles/inputfield.css";
+import instance from "api";
 import { useNavigate } from "react-router-dom";
 import NewNavbar from "../Navbar/NewNavbar";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import InfoIcon from '@mui/icons-material/Info';
+
 const validationSchema = yup.object({
   email: yup.string("Enter your email").required("Email is required"),
   password: yup.string("Enter your password").required("Password is required"),
