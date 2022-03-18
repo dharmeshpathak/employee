@@ -85,7 +85,7 @@ const [wit, setwit] = React.useState( window.innerWidth);
 
 
   useEffect(()=>{
-    console.log(wit)
+    // console.log(wit)
     setwit(window.innerWidth)
   },[wit])
 
@@ -172,7 +172,7 @@ const [wit, setwit] = React.useState( window.innerWidth);
               <ListItemIcon>
                 <PersonAddIcon color="primary" />
               </ListItemIcon>
-              <ListItemText primary={"Add Emp"} />
+              <ListItemText primary={"Add Employee"} />
             </ListItem>
           </Link>
 

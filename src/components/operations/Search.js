@@ -32,7 +32,8 @@ const Search = ({ login,setUpLogin }) => {
   };
  
   const getEmployeeField = async () => {
-    const { data } = await instance.get(`/employees`);
+    const authorId = JSON.parse(localStorage.getItem('userItem')).id
+    const { data } = await instance.get(`/employees?authorId=${authorId}`);
     console.log(data);
 
     setEmployee(data[0]);

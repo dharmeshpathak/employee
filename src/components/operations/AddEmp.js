@@ -34,6 +34,7 @@ const AddEmp = ({ login, setUpLogin }) => {
       email: employee.email,
       phone: employee.phone,
       dob: employee.dob,
+      authorId:JSON.parse(localStorage.getItem('userItem')).id
     });
     if (res.status === 201) {
       console.log('Empployee Added');

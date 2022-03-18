@@ -40,7 +40,8 @@ function Home({ login, setUpLogin }) {
   };
 
   const getEmployee = useCallback(async () => {
-    const { data } = await instance.get(`/employees`);
+    const authorId = JSON.parse(localStorage.getItem('userItem')).id
+    const { data } = await instance.get(`/employees?authorId=${authorId}`);
     console.log(data);
     setEmployees(data);
   }, []);
