@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import InfoIcon from "@mui/icons-material/Info";
 import { useDispatch, useSelector } from "react-redux";
 import {signUp} from '../../actions/userActions'
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 const validationSchema = yup.object({
   email: yup
@@ -22,11 +23,13 @@ const validationSchema = yup.object({
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
-function SignUp({ login, setUpLogin }) {
+function SignUp({setUpLogin }) {
   const [match, setmatch] = useState(false);
   const dispatch = useDispatch()
   const matched = useSelector(state=>state.user.match)
-  
+  const loggedIn = useSelector(state=>state.user.login)
+  const [login, setlogin] = useState(false)
+let navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -50,6 +53,18 @@ function SignUp({ login, setUpLogin }) {
     setmatch(matched)
 
   },[matched])
+
+  
+useEffect(()=>{
+  setlogin(loggedIn);
+  
+},[loggedIn])
+useEffect(() => {
+   
+    if (login) navigate("/");
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [login]);
 
   return (
     <NewNavbar login={login} setUpLogin={setUpLogin}>

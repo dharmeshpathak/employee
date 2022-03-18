@@ -8,13 +8,15 @@ import {
 import instance from "../api/index";
 
 export const addEmployees = (employee) => {
-  return (dispatch) => {
+  return (dispatch,getState) => {
     return instance
       .post("/employees", {
         name: employee.name,
         email: employee.email,
         phone: employee.phone,
         dob: employee.dob,
+        authorId:getState().user.loggedInUser.id
+       
       })
       .then(({ data }) => {
         //   console.log(data);
@@ -29,9 +31,10 @@ export const addEmployees = (employee) => {
   };
 };
 export const getEmployees = () => {
-  return async (dispatch) => {
+  return async (dispatch,getState) => {
     try {
-      const { data } = await instance.get("/employees");
+      const authorId = getState().user.loggedInUser.id
+      const { data } = await instance.get(`/employees?authorId=${authorId}`);
       dispatch({
         type: GET_EMPLOYEES,
         payload: data,
@@ -44,7 +47,7 @@ export const getEmployees = () => {
 export const getEmployee = () => {
   return async (dispatch, getState) => {
     try {
-      const gets = getState((state) => state.employees.selectedId);
+      const gets = getState();
       console.log("in thunk");
       console.log(gets.employees.selectedId);
       if (gets.employees.selectedId !== "") {
