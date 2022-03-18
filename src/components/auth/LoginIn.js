@@ -1,19 +1,25 @@
-import { useState, useEffect } from "react";
+import { useEffect,useState } from "react";
 import { Paper, Typography, Box, Button, TextField } from "@mui/material";
 import "../../styles/inputfield.css";
-import instance from "../../api";
 import { useNavigate } from "react-router-dom";
 import NewNavbar from "../Navbar/NewNavbar";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import InfoIcon from '@mui/icons-material/Info';
+import {logIn} from '../../actions/userActions'
+import { useDispatch, useSelector } from "react-redux";
 const validationSchema = yup.object({
   email: yup.string("Enter your email").required("Email is required"),
   password: yup.string("Enter your password").required("Password is required"),
 });
-const LoginIn = ({ setUpLogin, login }) => {
+const LoginIn = ({ setUpLogin }) => {
+  const dispatch = useDispatch();
+  const loggedIn = useSelector(state=>state.user.login)
+  const [login, setlogin] = useState(false)
+
+  const match = useSelector(state=>state.user.validUser)
   let navigate = useNavigate();
-  const [match, setmatch] = useState(true);
+  
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -21,37 +27,23 @@ const LoginIn = ({ setUpLogin, login }) => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const { data, status } = await instance.get(`/users`);
-      console.log(data);
+      dispatch(logIn(values));
 
-      if (status === 200) {
-        const user = data.filter((emp) => {
-          return (
-            emp.username === values.email && emp.password === values.password
-          );
-        });
-        if (user.length !== 0) {
-          setmatch(true);
-          console.log(user);
 
-          localStorage.setItem("userItem", JSON.stringify(user[0]));
 
-          navigate("/");
-        } else {
-          setmatch(false);
-
-          return;
-        }
-      }
+      
     },
   });
+  useEffect(()=>{
+  setlogin(loggedIn);
+  
+},[loggedIn])
 
   useEffect(() => {
-    setUpLogin();
-    console.log("login = ", login);
+   
     if (login) navigate("/");
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [login]);
 
   return (

@@ -14,9 +14,10 @@ import MuiAppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-
+import {logoutUser} from '../../actions/userActions'
 import "../../styles/drawer.css"
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 const drawerWidth = 240;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -65,6 +66,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft({ login, setUpLogin ,children}) {
+  const dispatch = useDispatch()
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -191,8 +193,9 @@ const [wit, setwit] = React.useState( window.innerWidth);
               key={"Logout"}
               onClick={() => {
                 setOpen(false);
+                dispatch(logoutUser())
 
-                localStorage.clear();
+               
                 navigate("/login");
               }}
             >

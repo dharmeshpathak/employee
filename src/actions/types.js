@@ -5,3 +5,11 @@ export const DELETE_EMPLOYEES = "DELETE_EMPLOYEES";
 export const GET_EMPLOYEES = "GET_EMPLOYEES";
 export const GET_EMPLOYEE = "GET_EMPLOYEE";
 export const SET_ID = "SET_ID";
+
+export const ADD_USER='ADD_USER';
+export const LOGIN_USER='LOGIN_USER';
+export const WRONG_DETAILS='WRONG_DETAILS'
+export const MATCH_USER='MATCH_USER'
+export const LOGOUT_USER='LOGOUT_USER'
+
+

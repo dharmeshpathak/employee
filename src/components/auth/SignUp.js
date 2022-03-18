@@ -1,11 +1,14 @@
 import { Paper, Typography, Box, Button, TextField } from "@mui/material";
 import "../../styles/inputfield.css";
-import instance from "../../api";
+
 import NewNavbar from "../Navbar/NewNavbar";
 import * as yup from "yup";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import InfoIcon from "@mui/icons-material/Info";
+import { useDispatch, useSelector } from "react-redux";
+import {signUp} from '../../actions/userActions'
+import { useEffect } from "react";
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
@@ -21,6 +24,9 @@ const validationSchema = yup.object({
 });
 function SignUp({ login, setUpLogin }) {
   const [match, setmatch] = useState(false);
+  const dispatch = useDispatch()
+  const matched = useSelector(state=>state.user.match)
+  
 
   const formik = useFormik({
     initialValues: {
@@ -30,26 +36,20 @@ function SignUp({ login, setUpLogin }) {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      const { data } = await instance.get("/users");
-      const user = data.filter((emp) => emp.username === values.email);
-      if (user.length) {
-        setmatch(true);
-        return;
-      } else {
-        const res = await instance.post(`/users`, {
-          username: values.email,
-          password: values.password,
-        });
-        if (res.status === 201) {
-          console.log("user Added");
+      dispatch(signUp(values))
+      
           values.email = "";
 
           values.password = "";
           values.cpassword = "";
-        }
-      }
+       
+      
     },
   });
+  useEffect(()=>{
+    setmatch(matched)
+
+  },[matched])
 
   return (
     <NewNavbar login={login} setUpLogin={setUpLogin}>
