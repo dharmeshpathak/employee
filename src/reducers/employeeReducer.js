@@ -6,9 +6,9 @@ import {
   UPDATE_EMPLOYEE,
   GET_EMPLOYEE,
   SET_ID,
-} from "../actions/types";
+} from "actions/types";
 const initialState = {
-  emply: [{ name: "Dharmesh", email: "email" }],
+  emply: [],
   selectedEmployee: {
     name: "",
     email: "",

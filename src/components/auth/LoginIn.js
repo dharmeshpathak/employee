@@ -1,12 +1,12 @@
 import { useEffect,useState } from "react";
 import { Paper, Typography, Box, Button, TextField } from "@mui/material";
-import "../../styles/inputfield.css";
+import "styles/inputfield.css";
 import { useNavigate } from "react-router-dom";
 import NewNavbar from "../Navbar/NewNavbar";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import InfoIcon from '@mui/icons-material/Info';
-import {logIn} from '../../actions/userActions'
+import {logIn} from 'actions/userActions'
 import { useDispatch, useSelector } from "react-redux";
 const validationSchema = yup.object({
   email: yup.string("Enter your email").required("Email is required"),

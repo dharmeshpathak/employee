@@ -1,24 +1,20 @@
 import { useEffect, useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import { Paper, Checkbox, Button, Box, Divider } from "@mui/material";
+import {Table,TableBody,TableCell,TableRow,TableHead,Paper, Checkbox, Button, Box, Divider} from '@mui/material';
+
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import Toggle from "../mainscreen/Toggle";
 import NewNavbar from "../Navbar/NewNavbar";
 import CardElem from "../mainscreen/CardElem";
 import Modl from "../mainscreen/Modal/Modl";
 import OptionMenu from "../mainscreen/OptionMenu";
-import "../../styles/table.css";
+import "styles/table.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getEmployees,
   deleteEmployees,
   getEmployee,
-} from "../../actions/index";
-import { SET_ID } from "../../actions/types";
+} from "actions/index";
+import { SET_ID } from "actions/types";
 function Home({ login, setUpLogin }) {
   const employee = useSelector((state) => state.employees.emply);
   const selectedEmp = useSelector((state) => state.employees.selectedEmployee);

@@ -11,9 +11,9 @@ import {
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import CelebrationIcon from "@mui/icons-material/Celebration";
-import "../../styles/card.css";
+import "styles/card.css";
 
-import { deleteEmployee } from "../../actions";
+import { deleteEmployee } from "actions";
 import { useDispatch } from "react-redux";
 
 const idStyle = {

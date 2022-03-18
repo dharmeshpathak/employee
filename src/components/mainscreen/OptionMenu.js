@@ -1,29 +1,27 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
+import {
+  Button,
+  ButtonGroup,
+  Grow,
+  Paper,
+  Popper,
+  MenuItem,
+  MenuList,
+} from "@mui/material";
+
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import Grow from "@mui/material/Grow";
-import Paper from "@mui/material/Paper";
-import Popper from "@mui/material/Popper";
-import MenuItem from "@mui/material/MenuItem";
-import MenuList from "@mui/material/MenuList";
+
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import {deleteEmployee} from '../../actions/index'
+import { deleteEmployee } from "../../actions/index";
 import { useDispatch } from "react-redux";
 const options = [
   <EditOutlinedIcon style={{ margin: "2px 4px" }} />,
   <DeleteOutlineIcon style={{ margin: "2px 4px" }} />,
 ];
 
-export default function SplitButton({
- 
-  handleOpen,
-  id,
-  handleClose,
-}) {
-
+export default function SplitButton({ handleOpen, id, handleClose }) {
   const dispatch = useDispatch();
   const [openOption, setOpenOption] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -52,13 +50,10 @@ export default function SplitButton({
         variant="contained"
         ref={anchorRef}
         aria-label="outlined primary split button"
-        
-
       >
         <Button
-        variant="outlined"
-        style={{backgroundColor:"white",
-        }}
+          variant="outlined"
+          style={{ backgroundColor: "white" }}
           onClick={() => {
             selectedIndex === 0 ? handleOpen(id) : dispatch(deleteEmployee(id));
           }}
@@ -66,9 +61,8 @@ export default function SplitButton({
           {options[selectedIndex]}
         </Button>
         <Button
-         variant="outlined"
-        style={{backgroundColor:"white",
-        }}
+          variant="outlined"
+          style={{ backgroundColor: "white" }}
           size="small"
           aria-controls={openOption ? "split-button-menu" : undefined}
           aria-expanded={openOption ? "true" : undefined}

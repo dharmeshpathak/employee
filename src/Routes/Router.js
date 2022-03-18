@@ -7,7 +7,7 @@ import LoginIn from "../components/auth/LoginIn";
 import SignUp from "../components/auth/SignUp";
 import Search from "../components/operations/Search";
 import { useDispatch, useSelector } from "react-redux";
-import {checkUser} from '../actions/userActions';
+import {checkUser} from 'actions/userActions';
 import { useState } from "react";
 
 function Router({ login, setUpLogin }) {

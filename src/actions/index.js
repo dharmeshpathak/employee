@@ -5,7 +5,7 @@ import {
   UPDATE_EMPLOYEE,
   GET_EMPLOYEE,
 } from "./types";
-import instance from "../api/index";
+import instance from "api/index";
 
 export const addEmployees = (employee) => {
   return (dispatch,getState) => {

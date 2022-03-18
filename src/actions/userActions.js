@@ -5,7 +5,7 @@ import {
     LOGOUT_USER,
     CHECK_USER
   } from "./types";
-  import instance from "../api/index";
+  import instance from "api/index";
 
   export const signUp=(values)=>{
       console.log(values);

@@ -1,4 +1,4 @@
-import {ADD_USER,MATCH_USER,LOGIN_USER,LOGOUT_USER, CHECK_USER} from '../actions/types'
+import {ADD_USER,MATCH_USER,LOGIN_USER,LOGOUT_USER, CHECK_USER} from 'actions/types'
 const initialValues = {
     match:false,
     validUser:true,

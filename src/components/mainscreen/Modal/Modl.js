@@ -3,7 +3,7 @@ import { styled, Box } from "@mui/system";
 import ModalUnstyled from "@mui/base/ModalUnstyled";
 import { Paper, Typography, Button, TextField } from "@mui/material";
 
-import { updateEmployee } from "../../../actions/index";
+import { updateEmployee } from "actions/index";
 import { useDispatch, useSelector } from "react-redux";
 const StyledModal = styled(ModalUnstyled)`
   position: fixed;
