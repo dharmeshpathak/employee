@@ -12,7 +12,7 @@ export const userReducer=(state=initialValues,action)=>{
         case MATCH_USER:
             return {...state,match:action.payload} 
         
-        case LOGIN_USER:console.log(action)
+        case LOGIN_USER:
         return{
             ...state, validUser:action.payload.validUser,
             loggedInUser:action.payload.loggedInUser,
@@ -23,7 +23,7 @@ export const userReducer=(state=initialValues,action)=>{
             ...state,
             login:action.payload.log
         }
-        case CHECK_USER:console.log(action);
+        case CHECK_USER:
         
         return {
             ...state,
